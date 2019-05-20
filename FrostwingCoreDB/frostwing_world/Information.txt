@@ -1,0 +1,4 @@
+1. Go into your database and create a new database called "frostwing_world"
+2. Right click on the new database and click Import
+3. Navigate into this folder and unzip frostwing_world sql file into this folder then import it into the DB
+4. Go to the Database Updates folder and import all WORLD_DB updates.

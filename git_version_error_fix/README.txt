@@ -1,0 +1,1 @@
+if you get an error that says you need git_version.h in your shared folder copy this .h file into your src/shared folder

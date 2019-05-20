@@ -1,0 +1,13 @@
+*Killing Machine - fixed, it now procs correctly and not after every melee attack.
+*Hungering Cold - fixed, it now freezes all targets around the DK.
+*New DK Rune System - We have overhauled the old outdated junky DK rune system and implemented a new DK rune system, with this the rune system is now more blizzlike.
+*Death Grip - fixed, now is 100% blizzlike.
+*Raise Dead - the ghoul summoned now spawns next to you instead of way way away from you.
+*Obliterate - now increases damage per disease and now removes them also.
+*Howling Blast - now scales correctly with your Attack Power.
+*Annihilation - ranks 1,2,3 of these talents now function correctly.
+*Rime - this talent has been fixed.
+*Blood-caked Blades - this talent has been fixed.
+*Necrosis - this talent has been fixed.
+*Death & Decay - this talent now scales with 4.805% of your attack power as intended.
+*Blood Boil - fixed, now deals damage to all enemies around target.

@@ -1,0 +1,4 @@
+*Fan of Knvies - fixed, now deals damage to all enemies around target.
+*Hunger for Blood - talent has been fixed and now works 100% blizzlike.
+*Unfair Advantage - talent has been fixed and now works!
+*Killing Spree - talent has been fixed and now works.

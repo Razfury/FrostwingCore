@@ -1,0 +1,2 @@
+1. Go into your database and right click on "frostwing_world" and select Import
+2. Import the "WORLD_DB_UPDATE_X" sql files starting with the lowest number and working your way up.

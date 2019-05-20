@@ -1,0 +1,2 @@
+*Everlasting Affliction talent - fixed, now resets the duration if the required spells hits the target.
+*Decimation talent - fully fixed works blizzlike.

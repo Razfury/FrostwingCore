@@ -1,0 +1,3 @@
+*Elemental Mastery - fixed, now allows spells to be instant cast.
+*Lightning Overload - fixed, now procs and works blizzlike. <Ignore console warnings this talent is fixed.>
+*Windfury Weapon (ALL RANKS) - fixed, they now proc.

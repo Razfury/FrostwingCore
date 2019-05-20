@@ -18,6 +18,6 @@ FrostwingCore based from ArcEmu & AscEmu, our name strives to bring change and a
 11. Accurate database information from refactoring (FrostwingCore Team)
 12. ALOT more.
 
-##Requirements
+## Requirements
 This core only works when you compile with Microsoft Visual Studio C++ 2013 (NOT 2015 or higher)
 +Cmake

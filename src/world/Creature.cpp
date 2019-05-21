@@ -1216,25 +1216,64 @@ uint8 get_byte(uint32 buffer, uint32 index)
 bool Creature::Load(CreatureSpawn* spawn, uint32 mode, MapInfo* info)
 {
 	m_spawn = spawn;
-	if (mode == DUNGEON_HEROIC)
-	{
-		difficulty = CreatureDifficultyStorage.LookupEntry(spawn->entry);
-		if (difficulty == NULL)
-			return false;
-	}
-		proto = CreatureProtoStorage.LookupEntry(spawn->entry);
-		if (proto == NULL)
-			return false;
+	proto = CreatureProtoStorage.LookupEntry(spawn->entry);
+    if (proto == NULL)
+    {
+        LOG_ERROR("[Creature::Load] normalProto did not load correctly!");
+        return false;
+    }
 	creature_info = CreatureNameStorage.LookupEntry(spawn->entry);
-	if (creature_info == NULL)
-		return false;
+    if (creature_info == NULL)
+    {
+        LOG_ERROR("[Creature::Load] creature_info did not load correctly!");
+        return false;
+    }
 
-	if (mode == DUNGEON_HEROIC)
-	{
-		proto = CreatureProtoStorage.LookupEntry(difficulty->difficulty_1);
-		if (proto == NULL)
-			return false;
-	}
+    if (mode == RAID_25MAN_NORMAL || mode == DUNGEON_HEROIC)
+    {
+        CreatureDifficulty* difficultyProto = CreatureDifficultyStorage.LookupEntry(spawn->entry);
+        if (difficultyProto != NULL) // We found an entry that matches our npc for a higher difficulty!
+            if (difficultyProto->difficulty_1 > 0) // Found 25man normal and or heroic dungeon stats
+            {
+                proto = CreatureProtoStorage.LookupEntry(difficultyProto->difficulty_1); // set 25man normal and or heroic dungeon stats
+            }
+            else if (difficultyProto->difficulty_1 == 0) // Could not find 25man normal and or heroic dungeon stats
+            {
+                proto = CreatureProtoStorage.LookupEntry(spawn->entry); // Set the orginal id back.
+            }
+    }
+    if (mode == RAID_10MAN_HEROIC)
+    {
+        CreatureDifficulty* difficultyProto = CreatureDifficultyStorage.LookupEntry(spawn->entry);
+        if (difficultyProto != NULL) // We found an entry that matches our npc for a higher difficulty!
+            if (difficultyProto->difficulty_2 > 0) // Found 10man heroic stats
+            {
+                proto = CreatureProtoStorage.LookupEntry(difficultyProto->difficulty_2); // set 10man heroic stats 
+            }
+            else if (difficultyProto->difficulty_2 == 0) // Could not find 10man heroic stats
+            {
+                proto = CreatureProtoStorage.LookupEntry(spawn->entry); // Set the orginal id back (10man normal)
+            }
+    }
+    if (mode == RAID_25MAN_HEROIC)
+    {
+        CreatureDifficulty* difficultyProto = CreatureDifficultyStorage.LookupEntry(spawn->entry);
+        if (difficultyProto != NULL) // We found an entry that matches our npc for a higher difficulty!
+        {
+            if (difficultyProto->difficulty_3 > 0) // Found 25man heroic stats
+            {
+                proto = CreatureProtoStorage.LookupEntry(difficultyProto->difficulty_3); // Set 25man heroic stats
+            }
+            else if (difficultyProto->difficulty_3 == 0) // Could not find heroic stats for entry so set 25 man normal stats
+            {
+                proto = CreatureProtoStorage.LookupEntry(difficultyProto->difficulty_1); // 25man normal stats
+            }
+            else if (difficultyProto->difficulty_1 == 0 && difficultyProto->difficulty_3 == 0) // No 25man Normal or Heroic stats
+            {
+                proto = CreatureProtoStorage.LookupEntry(spawn->entry); // Set the orginal id back.
+            }
+        }
+    }
 
 	spawnid = spawn->id;
 	m_phase = spawn->phase;

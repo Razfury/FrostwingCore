@@ -431,9 +431,6 @@ class SERVER_DECL Creature : public Unit
 
         bool Load(CreatureSpawn* spawn, uint32 mode, MapInfo* info);
         void Load(CreatureProto* proto_, float x, float y, float z, float o = 0);
-        bool Load_Difficulty1(CreatureSpawn* spawn, uint32 mode, MapInfo* info);
-        bool Load_Difficulty2(CreatureSpawn* spawn, uint32 mode, MapInfo* info);
-        bool Load_Difficulty3(CreatureSpawn* spawn, uint32 mode, MapInfo* info);
 
 		//Custom
 		void InstanceCreatureAwardEmblem(Creature* u);

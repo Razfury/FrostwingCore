@@ -20,6 +20,9 @@ SET(sources
 	Arenas.cpp 
 	AuctionHouse.cpp 
 	AuctionMgr.cpp 
+	Battlefield.cpp
+	BattlefieldHandler.cpp
+	BattlefieldMgr.cpp
 	Battleground.cpp
 	BattlegroundCommands.cpp 
 	BattlegroundHandler.cpp 
@@ -65,6 +68,7 @@ SET(sources
 	Item.cpp 
 	ItemHandler.cpp 
 	ItemInterface.cpp 
+	LakeWintergrasp.cpp
 	Level0.cpp 
 	Level1.cpp 
 	Level2.cpp 
@@ -183,6 +187,8 @@ SET( headers
 	AuctionHouse.h
 	AuctionMgr.h
 	BaseConsole.h
+	Battlefield.h
+	BattlefieldMgr.h
 	Battleground.h
 	BattlegroundMgr.h
    CalendarMgr.h
@@ -230,6 +236,7 @@ SET( headers
 	ItemInterface.h
 	ItemPrototype.h
 	IUpdatable.h
+	LakeWintergrasp.h
    Lfg.h
    LfgGroupData.h
    LfgPlayerData.h

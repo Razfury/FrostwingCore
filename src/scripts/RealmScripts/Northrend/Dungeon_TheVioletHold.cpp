@@ -231,12 +231,12 @@ uint32 WaveCount = 0;
 
 ///////////////////////////////////////////////////////
 //Lieutnant Sinclari StartEvent
-class SinclariAI : public MoonScriptCreatureAI
+class SinclariAI : public HybridCreatureScriptAI
 {
     public:
 
-        MOONSCRIPT_FACTORY_FUNCTION(SinclariAI, MoonScriptCreatureAI);
-        SinclariAI(Creature* pCreature) : MoonScriptCreatureAI(pCreature)
+        HYBRIDSCRIPT_FUNCTION(SinclariAI, HybridCreatureScriptAI);
+        SinclariAI(Creature* pCreature) : HybridCreatureScriptAI(pCreature)
         {
             _unit->GetAIInterface()->setMoveType(MOVEMENTTYPE_WANTEDWP);
         }
@@ -370,12 +370,12 @@ class SinclariGossip : public GossipScript
 
 ///////////////////////////////////////////////////////
 //VH Guards
-class VHGuardsAI : public MoonScriptCreatureAI
+class VHGuardsAI : public HybridCreatureScriptAI
 {
     public:
 
-        MOONSCRIPT_FACTORY_FUNCTION(VHGuardsAI, MoonScriptCreatureAI);
-        VHGuardsAI(Creature* pCreature) : MoonScriptCreatureAI(pCreature)
+        HYBRIDSCRIPT_FUNCTION(VHGuardsAI, HybridCreatureScriptAI);
+        VHGuardsAI(Creature* pCreature) : HybridCreatureScriptAI(pCreature)
         {
            _unit->GetAIInterface()->setMoveType(MOVEMENTTYPE_WANTEDWP);
         }
@@ -408,11 +408,11 @@ class VHGuardsAI : public MoonScriptCreatureAI
 //Ongoing Issues:
 // #2: Mini-Bosses need scripted.
 // #5: Waypoints from adds need to be added.
-class VioletHoldSpawnHandler : public MoonScriptBossAI
+class VioletHoldSpawnHandler : public HybridBossScriptAI
 {
 public:
-	MOONSCRIPT_FACTORY_FUNCTION(VioletHoldSpawnHandler, MoonScriptBossAI);
-	VioletHoldSpawnHandler(Creature* pCreature) : MoonScriptBossAI(pCreature)
+	HYBRIDSCRIPT_FUNCTION(VioletHoldSpawnHandler, HybridBossScriptAI);
+	VioletHoldSpawnHandler(Creature* pCreature) : HybridBossScriptAI(pCreature)
 	{
 		RegisterAIUpdateEvent(1000);
 	}
@@ -859,11 +859,11 @@ protected:
 	bool notice;
 };
 
-class AzureBinderAI : public MoonScriptBossAI
+class AzureBinderAI : public HybridBossScriptAI
 {
 public:
-	MOONSCRIPT_FACTORY_FUNCTION(AzureBinderAI, MoonScriptBossAI);
-	AzureBinderAI(Creature* pCreature) : MoonScriptBossAI(pCreature)
+	HYBRIDSCRIPT_FUNCTION(AzureBinderAI, HybridBossScriptAI);
+	AzureBinderAI(Creature* pCreature) : HybridBossScriptAI(pCreature)
 	{
 	}
 
@@ -1099,11 +1099,11 @@ protected:
 	int32 ReleaseTimer_Zuramat;
 };
 
-class POrtalAI : public MoonScriptBossAI
+class POrtalAI : public HybridBossScriptAI
 {
 public:
-	MOONSCRIPT_FACTORY_FUNCTION(POrtalAI, MoonScriptBossAI);
-	POrtalAI(Creature* pCreature) : MoonScriptBossAI(pCreature)
+	HYBRIDSCRIPT_FUNCTION(POrtalAI, HybridBossScriptAI);
+	POrtalAI(Creature* pCreature) : HybridBossScriptAI(pCreature)
 	{
 	}
 
@@ -1216,11 +1216,11 @@ enum ErekemEvents
 	EVENT_SPELL_LIGHTNING_BOLT,
 	EVENT_SPELL_STORMSTRIKE,
 };
-class ErekemAI : public MoonScriptBossAI
+class ErekemAI : public HybridBossScriptAI
 {
 public:
-	MOONSCRIPT_FACTORY_FUNCTION(ErekemAI, MoonScriptBossAI);
-	ErekemAI(Creature* pCreature) : MoonScriptBossAI(pCreature)
+	HYBRIDSCRIPT_FUNCTION(ErekemAI, HybridBossScriptAI);
+	ErekemAI(Creature* pCreature) : HybridBossScriptAI(pCreature)
 	{
 		_addDeath = 0;
 	}
@@ -1415,11 +1415,11 @@ enum MoraggEvents
 	EVENT_SPELL_CORROSIVE_SALIVA = 1,
 	EVENT_SPELL_OPTIC_LINK,
 };
-class MoraggAI : public MoonScriptBossAI
+class MoraggAI : public HybridBossScriptAI
 {
 public:
-	MOONSCRIPT_FACTORY_FUNCTION(MoraggAI, MoonScriptBossAI);
-	MoraggAI(Creature* pCreature) : MoonScriptBossAI(pCreature)
+	HYBRIDSCRIPT_FUNCTION(MoraggAI, HybridBossScriptAI);
+	MoraggAI(Creature* pCreature) : HybridBossScriptAI(pCreature)
 	{
 	}
 
@@ -1504,11 +1504,11 @@ enum GuardErekemEvents
 	EVENT_SPELL_STRIKE
 };
 
-class ErekemGuardAI : public MoonScriptBossAI
+class ErekemGuardAI : public HybridBossScriptAI
 {
 public:
-	MOONSCRIPT_FACTORY_FUNCTION(ErekemGuardAI, MoonScriptBossAI);
-	ErekemGuardAI(Creature* pCreature) : MoonScriptBossAI(pCreature)
+	HYBRIDSCRIPT_FUNCTION(ErekemGuardAI, HybridBossScriptAI);
+	ErekemGuardAI(Creature* pCreature) : HybridBossScriptAI(pCreature)
 	{
 	}
 
@@ -1564,11 +1564,11 @@ public:
 ///////////////////////////////////////////////////////
 //Boss: Ichoron
 //class IchoronAI : public CreatureAIScript
-class IchoronAI : public MoonScriptBossAI
+class IchoronAI : public HybridBossScriptAI
 {
 public:
-	MOONSCRIPT_FACTORY_FUNCTION(IchoronAI, MoonScriptBossAI);
-	IchoronAI(Creature* pCreature) : MoonScriptBossAI(pCreature)
+	HYBRIDSCRIPT_FUNCTION(IchoronAI, HybridBossScriptAI);
+	IchoronAI(Creature* pCreature) : HybridBossScriptAI(pCreature)
 	{
 	}
 
@@ -1610,11 +1610,11 @@ enum XevozzEvents
 	EVENT_SUMMON_PLAYERS,
 	EVENT_DESPAWN_SPHERE
 };
-class XevozzAI : public MoonScriptBossAI
+class XevozzAI : public HybridBossScriptAI
 {
 public:
-	MOONSCRIPT_FACTORY_FUNCTION(XevozzAI, MoonScriptBossAI);
-	XevozzAI(Creature* pCreature) : MoonScriptBossAI(pCreature)
+	HYBRIDSCRIPT_FUNCTION(XevozzAI, HybridBossScriptAI);
+	XevozzAI(Creature* pCreature) : HybridBossScriptAI(pCreature)
 	{
 	}
 
@@ -1707,11 +1707,11 @@ public:
 	}
 };
 
-class EtherealSphereAI : public MoonScriptBossAI
+class EtherealSphereAI : public HybridBossScriptAI
 {
 public:
-	MOONSCRIPT_FACTORY_FUNCTION(EtherealSphereAI, MoonScriptBossAI);
-	EtherealSphereAI(Creature* pCreature) : MoonScriptBossAI(pCreature)
+	HYBRIDSCRIPT_FUNCTION(EtherealSphereAI, HybridBossScriptAI);
+	EtherealSphereAI(Creature* pCreature) : HybridBossScriptAI(pCreature)
 	{
 	}
 
@@ -1785,11 +1785,11 @@ enum LavanthosEvents
 	EVENT_SPELL_LAVA_BURN,
 	EVENT_SPELL_CAUTERIZING_FLAMES,
 };
-class LavanthosAI : public MoonScriptBossAI
+class LavanthosAI : public HybridBossScriptAI
 {
 public:
-	MOONSCRIPT_FACTORY_FUNCTION(LavanthosAI, MoonScriptBossAI);
-	LavanthosAI(Creature* pCreature) : MoonScriptBossAI(pCreature)
+	HYBRIDSCRIPT_FUNCTION(LavanthosAI, HybridBossScriptAI);
+	LavanthosAI(Creature* pCreature) : HybridBossScriptAI(pCreature)
 	{}
 
 
@@ -1905,11 +1905,11 @@ enum ZuramatEvents
 	EVENT_SPELL_SUMMON_VOID_SENTRY,
 };
 
-class ZuramatTheObliteratorAI : public MoonScriptBossAI
+class ZuramatTheObliteratorAI : public HybridBossScriptAI
 {
 public:
-	MOONSCRIPT_FACTORY_FUNCTION(ZuramatTheObliteratorAI, MoonScriptBossAI);
-	ZuramatTheObliteratorAI(Creature* pCreature) : MoonScriptBossAI(pCreature)
+	HYBRIDSCRIPT_FUNCTION(ZuramatTheObliteratorAI, HybridBossScriptAI);
+	ZuramatTheObliteratorAI(Creature* pCreature) : HybridBossScriptAI(pCreature)
 	{
 		AddEmote(Event_OnCombatStart, "Eradicate!", Text_Yell, 13996);
 		AddEmote(Event_OnTargetDied, "More.... energy.", Text_Yell, 13999);
@@ -2004,11 +2004,11 @@ public:
 	}
 };
 
-class PrisonSealDoorAI : public MoonScriptBossAI // Npc Id: 30896
+class PrisonSealDoorAI : public HybridBossScriptAI // Npc Id: 30896
 {
 public:
-	MOONSCRIPT_FACTORY_FUNCTION(PrisonSealDoorAI, MoonScriptBossAI);
-	PrisonSealDoorAI(Creature* pCreature) : MoonScriptBossAI(pCreature)
+	HYBRIDSCRIPT_FUNCTION(PrisonSealDoorAI, HybridBossScriptAI);
+	PrisonSealDoorAI(Creature* pCreature) : HybridBossScriptAI(pCreature)
 	{
 	}
 
@@ -2068,11 +2068,11 @@ private:
 	bool _sealOpened;
 };
 
-class AzureCaptainAI : public MoonScriptCreatureAI
+class AzureCaptainAI : public HybridCreatureScriptAI
 {
 public:
-	MOONSCRIPT_FACTORY_FUNCTION(AzureCaptainAI, MoonScriptCreatureAI);
-	AzureCaptainAI(Creature* pCreature) : MoonScriptCreatureAI(pCreature)
+	HYBRIDSCRIPT_FUNCTION(AzureCaptainAI, HybridCreatureScriptAI);
+	AzureCaptainAI(Creature* pCreature) : HybridCreatureScriptAI(pCreature)
 	{
 		attackTimer = AddTimer(2000);
 	}
@@ -2097,11 +2097,11 @@ private:
 	int32 attackTimer;
 };
 
-class AzureRaiderAI : public MoonScriptCreatureAI
+class AzureRaiderAI : public HybridCreatureScriptAI
 {
 public:
-	MOONSCRIPT_FACTORY_FUNCTION(AzureRaiderAI, MoonScriptCreatureAI);
-	AzureRaiderAI(Creature* pCreature) : MoonScriptCreatureAI(pCreature)
+	HYBRIDSCRIPT_FUNCTION(AzureRaiderAI, HybridCreatureScriptAI);
+	AzureRaiderAI(Creature* pCreature) : HybridCreatureScriptAI(pCreature)
 	{
 		attackTimer = AddTimer(2000);
 	}
@@ -2126,11 +2126,11 @@ private:
 	int32 attackTimer;
 };
 
-class AzureStalkerAI : public MoonScriptCreatureAI
+class AzureStalkerAI : public HybridCreatureScriptAI
 {
 public:
-	MOONSCRIPT_FACTORY_FUNCTION(AzureStalkerAI, MoonScriptCreatureAI);
-	AzureStalkerAI(Creature* pCreature) : MoonScriptCreatureAI(pCreature)
+	HYBRIDSCRIPT_FUNCTION(AzureStalkerAI, HybridCreatureScriptAI);
+	AzureStalkerAI(Creature* pCreature) : HybridCreatureScriptAI(pCreature)
 	{
 		attackTimer = AddTimer(2000);
 	}
@@ -2167,11 +2167,11 @@ enum SpellsCyanigosa
 	SPELL_TAIL_SWEEP = 58690,
 	SPELL_UNCONTROLLABLE_ENERGY = 58688,
 };
-class CyanigosaAI : public MoonScriptBossAI
+class CyanigosaAI : public HybridBossScriptAI
 {
 public:
-	MOONSCRIPT_FACTORY_FUNCTION(CyanigosaAI, MoonScriptBossAI);
-	CyanigosaAI(Creature* pCreature) : MoonScriptBossAI(pCreature)
+	HYBRIDSCRIPT_FUNCTION(CyanigosaAI, HybridBossScriptAI);
+	CyanigosaAI(Creature* pCreature) : HybridBossScriptAI(pCreature)
 	{
 		timerjump = 0;
 		attackable = 0;

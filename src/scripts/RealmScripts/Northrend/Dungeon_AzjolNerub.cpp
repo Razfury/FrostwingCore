@@ -131,10 +131,10 @@ enum KrikthirNpcs
 	NPC_SKIRMISHER = 28734,
 	NPC_SHADOWCASTER = 28733
 };
-class KrikthirAI : public MoonScriptCreatureAI
+class KrikthirAI : public HybridCreatureScriptAI
 {
-    MOONSCRIPT_FACTORY_FUNCTION(KrikthirAI, MoonScriptCreatureAI);
-    KrikthirAI(Creature* pCreature) : MoonScriptCreatureAI(pCreature)
+    HYBRIDSCRIPT_FUNCTION(KrikthirAI, HybridCreatureScriptAI);
+    KrikthirAI(Creature* pCreature) : HybridCreatureScriptAI(pCreature)
     {
 		maxSpawn = 0;
     }
@@ -313,10 +313,10 @@ enum HadronoxMisc
 	ACTION_START_EVENT = 2
 };
 
-class HadronoxAI : public MoonScriptCreatureAI
+class HadronoxAI : public HybridCreatureScriptAI
 {
-    MOONSCRIPT_FACTORY_FUNCTION(HadronoxAI, MoonScriptCreatureAI);
-    HadronoxAI(Creature* pCreature) : MoonScriptCreatureAI(pCreature)
+    HYBRIDSCRIPT_FUNCTION(HadronoxAI, HybridCreatureScriptAI);
+    HadronoxAI(Creature* pCreature) : HybridCreatureScriptAI(pCreature)
     {};
 
 	void OnCombatStop(Unit* pTarget)
@@ -454,10 +454,10 @@ class HadronoxAI : public MoonScriptCreatureAI
 		uint32 randt = RandomUInt(0, 1);
 };
 
-class AnubarcrusherAI : public MoonScriptCreatureAI
+class AnubarcrusherAI : public HybridCreatureScriptAI
 {
-	MOONSCRIPT_FACTORY_FUNCTION(AnubarcrusherAI, MoonScriptCreatureAI);
-	AnubarcrusherAI(Creature* pCreature) : MoonScriptCreatureAI(pCreature)
+	HYBRIDSCRIPT_FUNCTION(AnubarcrusherAI, HybridCreatureScriptAI);
+	AnubarcrusherAI(Creature* pCreature) : HybridCreatureScriptAI(pCreature)
 	{}
 
 	void OnCombatStart(Unit* pTarget)
@@ -527,10 +527,10 @@ enum AnubArakMisc
 	EVENT_ENABLE_ROTATE = 14,
 	ANUB_EVENT_KILL_TALK = 15
 };
-class AnubArakAI : public MoonScriptCreatureAI
+class AnubArakAI : public HybridCreatureScriptAI
 {
-	MOONSCRIPT_FACTORY_FUNCTION(AnubArakAI, MoonScriptCreatureAI);
-	AnubArakAI(Creature* pCreature) : MoonScriptCreatureAI(pCreature)
+	HYBRIDSCRIPT_FUNCTION(AnubArakAI, HybridCreatureScriptAI);
+	AnubArakAI(Creature* pCreature) : HybridCreatureScriptAI(pCreature)
 	{}
 
 	void OnCombatStart(Unit* pTarget)
@@ -686,10 +686,10 @@ void spell_azjol_nerub_carrion_beetels(Aura* aur, uint32 spellId, bool apply, ui
 	}
 };
 
-class AddsAI_Anub : public MoonScriptCreatureAI
+class AddsAI_Anub : public HybridCreatureScriptAI
 {
-	MOONSCRIPT_FACTORY_FUNCTION(AddsAI_Anub, MoonScriptCreatureAI);
-	AddsAI_Anub(Creature* pCreature) : MoonScriptCreatureAI(pCreature)
+	HYBRIDSCRIPT_FUNCTION(AddsAI_Anub, HybridCreatureScriptAI);
+	AddsAI_Anub(Creature* pCreature) : HybridCreatureScriptAI(pCreature)
 	{
 		AddSpell(GASHRA_WEBWRAP, Target_RandomPlayer, 22, 0, 35, 0, 0);
 		AddSpell(GASHRA_INFECTEDBITE, Target_ClosestPlayer, 35, 0, 12, 0, 0);
@@ -722,10 +722,10 @@ class AddsAI_Anub : public MoonScriptCreatureAI
 
 
 //Watcher Gashra
-class GashraAI : public MoonScriptCreatureAI
+class GashraAI : public HybridCreatureScriptAI
 {
-    MOONSCRIPT_FACTORY_FUNCTION(GashraAI, MoonScriptCreatureAI);
-    GashraAI(Creature* pCreature) : MoonScriptCreatureAI(pCreature)
+    HYBRIDSCRIPT_FUNCTION(GashraAI, HybridCreatureScriptAI);
+    GashraAI(Creature* pCreature) : HybridCreatureScriptAI(pCreature)
     {
         AddSpell(GASHRA_WEBWRAP, Target_RandomPlayer, 22, 0, 35, 0, 0);
         AddSpell(GASHRA_INFECTEDBITE, Target_ClosestPlayer, 35, 0, 12, 0, 0);
@@ -734,10 +734,10 @@ class GashraAI : public MoonScriptCreatureAI
 };
 
 //Watcher Narjil
-class NarjilAI : public MoonScriptCreatureAI
+class NarjilAI : public HybridCreatureScriptAI
 {
-    MOONSCRIPT_FACTORY_FUNCTION(NarjilAI, MoonScriptCreatureAI);
-    NarjilAI(Creature* pCreature) : MoonScriptCreatureAI(pCreature)
+    HYBRIDSCRIPT_FUNCTION(NarjilAI, HybridCreatureScriptAI);
+    NarjilAI(Creature* pCreature) : HybridCreatureScriptAI(pCreature)
     {
         AddSpell(NARJIL_WEBWRAP, Target_RandomPlayer, 22, 0, 35, 0, 0);
         AddSpell(NARJIL_INFECTEDBITE, Target_ClosestPlayer, 35, 0, 12, 0, 0);
@@ -747,10 +747,10 @@ class NarjilAI : public MoonScriptCreatureAI
 };
 
 //Watcher Silthik
-class SilthikAI : public MoonScriptCreatureAI
+class SilthikAI : public HybridCreatureScriptAI
 {
-    MOONSCRIPT_FACTORY_FUNCTION(SilthikAI, MoonScriptCreatureAI);
-    SilthikAI(Creature* pCreature) : MoonScriptCreatureAI(pCreature)
+    HYBRIDSCRIPT_FUNCTION(SilthikAI, HybridCreatureScriptAI);
+    SilthikAI(Creature* pCreature) : HybridCreatureScriptAI(pCreature)
     {
         AddSpell(NARJIL_WEBWRAP, Target_RandomPlayer, 22, 0, 35, 0, 0);
         AddSpell(NARJIL_INFECTEDBITE, Target_ClosestPlayer, 35, 0, 12, 0, 0);
@@ -760,10 +760,10 @@ class SilthikAI : public MoonScriptCreatureAI
 };
 
 //Anub'ar Shadowcaster (anub shadowcaster)
-class AnubShadowcasterAI : public MoonScriptCreatureAI
+class AnubShadowcasterAI : public HybridCreatureScriptAI
 {
-    MOONSCRIPT_FACTORY_FUNCTION(AnubShadowcasterAI, MoonScriptCreatureAI);
-    AnubShadowcasterAI(Creature* pCreature) : MoonScriptCreatureAI(pCreature)
+    HYBRIDSCRIPT_FUNCTION(AnubShadowcasterAI, HybridCreatureScriptAI);
+    AnubShadowcasterAI(Creature* pCreature) : HybridCreatureScriptAI(pCreature)
     {
         AddSpell(SHADOWCASTER_SHADOWBOLT, Target_RandomPlayer, 36, 0, 8);
         AddSpell(SHADOWCASTER_SHADOW_NOVA, Target_Self, 22, 0, 15);

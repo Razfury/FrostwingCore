@@ -27,7 +27,7 @@
 #define DEFAULT_UPDATE_FREQUENCY 1000    //milliseconds
 #define DEFAULT_DESPAWN_TIMER 2000      //milliseconds
 
-#define MOONSCRIPT_FACTORY_FUNCTION(ClassName, ParentClassName)\
+#define HYBRIDSCRIPT_FUNCTION(ClassName, ParentClassName)\
 public:\
     ADD_CREATURE_FACTORY_FUNCTION(ClassName);\
     typedef ParentClassName ParentClass;
@@ -190,12 +190,12 @@ enum RangeStatus
 
 class TargetType;
 class SpellDesc;
-class MoonScriptCreatureAI;
-class MoonScriptBossAI;
+class HybridCreatureScriptAI;
+class HybridBossScriptAI;
 struct EventStruct;
 
-typedef void(*EventFunc)(MoonScriptCreatureAI* pCreatureAI, int32 pMiscVal);
-typedef void(*SpellFunc)(SpellDesc* pThis, MoonScriptCreatureAI* pCreatureAI, Unit* pTarget, TargetType pType);
+typedef void(*EventFunc)(HybridCreatureScriptAI* pCreatureAI, int32 pMiscVal);
+typedef void(*SpellFunc)(SpellDesc* pThis, HybridCreatureScriptAI* pCreatureAI, Unit* pTarget, TargetType pType);
 typedef std::vector<EmoteDesc*> EmoteArray;
 typedef std::vector<Player*> PlayerArray;
 typedef std::vector<Unit*> UnitArray;
@@ -656,12 +656,12 @@ private:
 };
 
 //////////////////////////////////////////////////////////////////////////////////////////
-//Class MoonScriptCreatureAI
-class MoonScriptCreatureAI : public CreatureAIScript
+//Class HybridCreatureScriptAI
+class HybridCreatureScriptAI : public CreatureAIScript
 {
     public:
-        MoonScriptCreatureAI(Creature* pCreature);
-        virtual ~MoonScriptCreatureAI();
+        HybridCreatureScriptAI(Creature* pCreature);
+        virtual ~HybridCreatureScriptAI();
 
 		// Event Handler
 		EventMap2 events;
@@ -670,7 +670,7 @@ class MoonScriptCreatureAI : public CreatureAIScript
 		void SendLFGReward(Unit* creature_rewarder);
         bool GetCanMove();
         void SetCanMove(bool pCanMove);
-        void MoveTo(MoonScriptCreatureAI* pCreature, RangeStatusPair pRangeStatus = make_pair(RangeStatus_TooFar, 0.0f));
+        void MoveTo(HybridCreatureScriptAI* pCreature, RangeStatusPair pRangeStatus = make_pair(RangeStatus_TooFar, 0.0f));
         void MoveTo(Unit* pUnit, RangeStatusPair pRangeStatus = make_pair(RangeStatus_TooFar, 0.0f));
         void MoveTo(float pX, float pY, float pZ, bool pRun = true);
         void MoveToSpawnOrigin();
@@ -716,7 +716,7 @@ class MoonScriptCreatureAI : public CreatureAIScript
         void SetDisplayWeaponIds(uint32 pItem1Id, uint32 pItem2Id);
 
         //Environment
-        float GetRange(MoonScriptCreatureAI* pCreature);
+        float GetRange(HybridCreatureScriptAI* pCreature);
         float GetRangeToUnit(Unit* pUnit);
         float GetRangeToObject(Object* pObject);
 
@@ -729,9 +729,9 @@ class MoonScriptCreatureAI : public CreatureAIScript
         void CastOnInrangePlayers(float pDistanceMin, float pDistanceMax, uint32 pSpellId, bool pTriggered = false);
         Player* GetNearestPlayer();
         GameObject* GetNearestGameObject(uint32 pGameObjectId = 0);
-        MoonScriptCreatureAI* GetNearestCreature(uint32 pCreatureId = 0);
-        MoonScriptCreatureAI* SpawnCreature(uint32 pCreatureId, bool pForceSameFaction = false);
-        MoonScriptCreatureAI* SpawnCreature(uint32 pCreatureId, float pX, float pY, float pZ, float pO = 0, bool pForceSameFaction = false, uint32 pPhase = 1);
+        HybridCreatureScriptAI* GetNearestCreature(uint32 pCreatureId = 0);
+        HybridCreatureScriptAI* SpawnCreature(uint32 pCreatureId, bool pForceSameFaction = false);
+        HybridCreatureScriptAI* SpawnCreature(uint32 pCreatureId, float pX, float pY, float pZ, float pO = 0, bool pForceSameFaction = false, uint32 pPhase = 1);
         Unit* ForceCreatureFind(uint32 pCreatureId);
         Unit* ForceCreatureFind(uint32 pCreatureId, float pX, float pY, float pZ);
         void Despawn(uint32 pDelay = 0, uint32 pRespawnTime = 0);
@@ -857,13 +857,13 @@ class MoonScriptCreatureAI : public CreatureAIScript
 
 
 //////////////////////////////////////////////////////////////////////////////////////////
-//Class MoonScriptBossAI
-class MoonScriptBossAI : public MoonScriptCreatureAI
+//Class HybridBossScriptAI
+class HybridBossScriptAI : public HybridCreatureScriptAI
 {
     public:
 
-        MoonScriptBossAI(Creature* pCreature);
-        virtual ~MoonScriptBossAI();
+        HybridBossScriptAI(Creature* pCreature);
+        virtual ~HybridBossScriptAI();
 
 		// Event Handler
 		EventMap2 events;
@@ -890,15 +890,15 @@ class MoonScriptBossAI : public MoonScriptCreatureAI
 
 
 //Premade Spell Functions
-void SpellFunc_ClearHateList(SpellDesc* pThis, MoonScriptCreatureAI* pCreatureAI, Unit* pTarget, TargetType pType);
-void SpellFunc_Disappear(SpellDesc* pThis, MoonScriptCreatureAI* pCreatureAI, Unit* pTarget, TargetType pType);
-void SpellFunc_Reappear(SpellDesc* pThis, MoonScriptCreatureAI* pCreatureAI, Unit* pTarget, TargetType pType);
+void SpellFunc_ClearHateList(SpellDesc* pThis, HybridCreatureScriptAI* pCreatureAI, Unit* pTarget, TargetType pType);
+void SpellFunc_Disappear(SpellDesc* pThis, HybridCreatureScriptAI* pCreatureAI, Unit* pTarget, TargetType pType);
+void SpellFunc_Reappear(SpellDesc* pThis, HybridCreatureScriptAI* pCreatureAI, Unit* pTarget, TargetType pType);
 
 
 //Premade Event Functions
-void EventFunc_ApplyAura(MoonScriptCreatureAI* pCreatureAI, int32 pMiscVal);
-void EventFunc_ChangeGoState(MoonScriptCreatureAI* pCreatureAI, int32 pMiscVal);
-void EventFunc_RemoveUnitFieldFlags(MoonScriptCreatureAI* pCreatureAI, int32 pMiscVal);
+void EventFunc_ApplyAura(HybridCreatureScriptAI* pCreatureAI, int32 pMiscVal);
+void EventFunc_ChangeGoState(HybridCreatureScriptAI* pCreatureAI, int32 pMiscVal);
+void EventFunc_RemoveUnitFieldFlags(HybridCreatureScriptAI* pCreatureAI, int32 pMiscVal);
 
 
 //STL Utilities

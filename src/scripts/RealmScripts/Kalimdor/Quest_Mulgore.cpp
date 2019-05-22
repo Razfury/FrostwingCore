@@ -54,12 +54,12 @@ static LocationExtra WaypointPlainVision[] =
     { -1513.968506f, 355.759338f, 63.064487f, 1.119193f, Flag_Run } //22
 };
 
-class The_Plains_Vision : public MoonScriptCreatureAI
+class The_Plains_Vision : public HybridCreatureScriptAI
 {
     public:
 
-        MOONSCRIPT_FACTORY_FUNCTION(The_Plains_Vision, MoonScriptCreatureAI);
-        The_Plains_Vision(Creature* pCreature) : MoonScriptCreatureAI(pCreature)
+        HYBRIDSCRIPT_FUNCTION(The_Plains_Vision, HybridCreatureScriptAI);
+        The_Plains_Vision(Creature* pCreature) : HybridCreatureScriptAI(pCreature)
         {
             WPCount = 22;
             WayPoints = WaypointPlainVision;

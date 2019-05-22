@@ -340,12 +340,12 @@ class Stasis_Chamber_Alpha : public GameObjectAIScript
 /////// Bloodmaul Brutebane Stout Trigger
 #define CN_BLOODMAUL_BRUTEBANE_STOUT_TRIGGER    21241
 
-class BrutebaneStoutTriggerAI : public MoonScriptCreatureAI
+class BrutebaneStoutTriggerAI : public HybridCreatureScriptAI
 {
     public:
 
-        MOONSCRIPT_FACTORY_FUNCTION(BrutebaneStoutTriggerAI, MoonScriptCreatureAI);
-        BrutebaneStoutTriggerAI(Creature* pCreature) : MoonScriptCreatureAI(pCreature)
+        HYBRIDSCRIPT_FUNCTION(BrutebaneStoutTriggerAI, HybridCreatureScriptAI);
+        BrutebaneStoutTriggerAI(Creature* pCreature) : HybridCreatureScriptAI(pCreature)
         {
             _unit->SetFaction(35);
 
@@ -406,7 +406,7 @@ class BrutebaneStoutTriggerAI : public MoonScriptCreatureAI
 
         Player* plr;
         GameObject* NdGo;
-        MoonScriptCreatureAI* Ogre;
+        HybridCreatureScriptAI* Ogre;
 };
 
 void SetupBladeEdgeMountains(ScriptMgr* mgr)

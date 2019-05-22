@@ -101,11 +101,11 @@ enum MeathookEvents
 	EVENT_SPELL_FRENZY = 3,
 };
 
-class MeathookAI : public MoonScriptBossAI
+class MeathookAI : public HybridBossScriptAI
 {
 public:
-	MOONSCRIPT_FACTORY_FUNCTION(MeathookAI, MoonScriptBossAI);
-	MeathookAI(Creature* pCreature) : MoonScriptBossAI(pCreature)
+	HYBRIDSCRIPT_FUNCTION(MeathookAI, HybridBossScriptAI);
+	MeathookAI(Creature* pCreature) : HybridBossScriptAI(pCreature)
 	{
 	}
 
@@ -208,11 +208,11 @@ enum SalrammSpells
 	SPELL_SUMMON_GHOULS = 52451
 };
 //SalramTheFleshcrafterAI
-class SalramTheFleshcrafterAI : public MoonScriptBossAI
+class SalramTheFleshcrafterAI : public HybridBossScriptAI
 {
 public:
-	MOONSCRIPT_FACTORY_FUNCTION(SalramTheFleshcrafterAI, MoonScriptBossAI);
-	SalramTheFleshcrafterAI(Creature* pCreature) : MoonScriptBossAI(pCreature)
+	HYBRIDSCRIPT_FUNCTION(SalramTheFleshcrafterAI, HybridBossScriptAI);
+	SalramTheFleshcrafterAI(Creature* pCreature) : HybridBossScriptAI(pCreature)
 	{
 		AddEmote(Event_OnTargetDied, "The fun is just beginning!", Text_Yell, 13473);
 		AddEmote(Event_OnTargetDied, "Aah, quality materials!", Text_Yell, 13474);
@@ -1032,12 +1032,12 @@ enum Npcs
 };
 
 //ArthasAI
-class ArthasAI : public MoonScriptBossAI
+class ArthasAI : public HybridBossScriptAI
 {
     public:
 
-		MOONSCRIPT_FACTORY_FUNCTION(ArthasAI, MoonScriptBossAI);
-		ArthasAI(Creature* pCreature) : MoonScriptBossAI(pCreature)
+		HYBRIDSCRIPT_FUNCTION(ArthasAI, HybridBossScriptAI);
+		ArthasAI(Creature* pCreature) : HybridBossScriptAI(pCreature)
         {
 			waypoint_timer_1 = 0;
 			waypoint_timer_2 = 0;
@@ -1411,12 +1411,12 @@ enum WaveNpcs
 	ZOMBIE_MOB = 27737,
 };
 
-class LordaeronCrierAI : public MoonScriptBossAI
+class LordaeronCrierAI : public HybridBossScriptAI
 {
 public:
 
-	MOONSCRIPT_FACTORY_FUNCTION(LordaeronCrierAI, MoonScriptBossAI);
-	LordaeronCrierAI(Creature* pCreature) : MoonScriptBossAI(pCreature)
+	HYBRIDSCRIPT_FUNCTION(LordaeronCrierAI, HybridBossScriptAI);
+	LordaeronCrierAI(Creature* pCreature) : HybridBossScriptAI(pCreature)
 	{
 		wavetimer = 0;
 		_randomFeel = false;
@@ -1718,11 +1718,11 @@ class ArthasGossip : public GossipScript
         }
 };
 
-class StratholmeCitizenAI : public MoonScriptBossAI
+class StratholmeCitizenAI : public HybridBossScriptAI
 {
 public:
-	MOONSCRIPT_FACTORY_FUNCTION(StratholmeCitizenAI, MoonScriptBossAI);
-	StratholmeCitizenAI(Creature* pCreature) : MoonScriptBossAI(pCreature)
+	HYBRIDSCRIPT_FUNCTION(StratholmeCitizenAI, HybridBossScriptAI);
+	StratholmeCitizenAI(Creature* pCreature) : HybridBossScriptAI(pCreature)
 	{
 		change = 0;
 	}
@@ -1747,11 +1747,11 @@ private:
 	int32 change;
 };
 
-class OnDiedAI : public MoonScriptCreatureAI
+class OnDiedAI : public HybridCreatureScriptAI
 {
 public:
-	MOONSCRIPT_FACTORY_FUNCTION(OnDiedAI, MoonScriptCreatureAI);
-	OnDiedAI(Creature* pCreature) : MoonScriptCreatureAI(pCreature)
+	HYBRIDSCRIPT_FUNCTION(OnDiedAI, HybridCreatureScriptAI);
+	OnDiedAI(Creature* pCreature) : HybridCreatureScriptAI(pCreature)
 	{}
 
 	void OnDied(Unit* mKiller)
@@ -1762,11 +1762,11 @@ public:
 	}
 };
 
-class RisenZombieAI : public MoonScriptBossAI
+class RisenZombieAI : public HybridBossScriptAI
 {
 public:
-	MOONSCRIPT_FACTORY_FUNCTION(RisenZombieAI, MoonScriptBossAI);
-	RisenZombieAI(Creature* pCreature) : MoonScriptBossAI(pCreature)
+	HYBRIDSCRIPT_FUNCTION(RisenZombieAI, HybridBossScriptAI);
+	RisenZombieAI(Creature* pCreature) : HybridBossScriptAI(pCreature)
 	{
 	}
 

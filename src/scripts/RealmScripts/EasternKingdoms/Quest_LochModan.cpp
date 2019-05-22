@@ -57,12 +57,12 @@ static LocationExtra WaypointsMiran[] =
     { -5711.766113f, -3778.145752f, 322.827942f, 4.473486f, Flag_Run }  //7
 };
 
-class Miran : public MoonScriptCreatureAI
+class Miran : public HybridCreatureScriptAI
 {
 
     public:
-        MOONSCRIPT_FACTORY_FUNCTION(Miran, MoonScriptCreatureAI);
-        Miran(Creature* pCreature) : MoonScriptCreatureAI(pCreature)
+        HYBRIDSCRIPT_FUNCTION(Miran, HybridCreatureScriptAI);
+        Miran(Creature* pCreature) : HybridCreatureScriptAI(pCreature)
         {
             WPCount = 7;
             WayPoints = WaypointsMiran;

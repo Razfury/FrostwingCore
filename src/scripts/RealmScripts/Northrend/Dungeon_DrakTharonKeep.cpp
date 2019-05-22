@@ -113,11 +113,11 @@ enum Events_Trollgore
 	EVENT_KILL_TALK = 6
 };
 
-class TrollgoreAI : public MoonScriptBossAI
+class TrollgoreAI : public HybridBossScriptAI
 {
 public:
-	MOONSCRIPT_FACTORY_FUNCTION(TrollgoreAI, MoonScriptBossAI);
-	TrollgoreAI(Creature* pCreature) : MoonScriptBossAI(pCreature)
+	HYBRIDSCRIPT_FUNCTION(TrollgoreAI, HybridBossScriptAI);
+	TrollgoreAI(Creature* pCreature) : HybridBossScriptAI(pCreature)
 	{
 	}
 
@@ -204,11 +204,11 @@ enum Misc_Novos
 	EVENT_SPELL_SUMMON_MINIONS = 8
 };
 
-class NovosTheSummonerAI : public MoonScriptBossAI
+class NovosTheSummonerAI : public HybridBossScriptAI
 {
 public:
-	MOONSCRIPT_FACTORY_FUNCTION(NovosTheSummonerAI, MoonScriptBossAI);
-	NovosTheSummonerAI(Creature* pCreature) : MoonScriptBossAI(pCreature)
+	HYBRIDSCRIPT_FUNCTION(NovosTheSummonerAI, HybridBossScriptAI);
+	NovosTheSummonerAI(Creature* pCreature) : HybridBossScriptAI(pCreature)
 	{
 	}
 
@@ -513,11 +513,11 @@ class CrystalHandlerAI : public CreatureAIScript
         vector< ScriptSpell* > spells;
 };
 
-class FetidTrollAI : public MoonScriptBossAI
+class FetidTrollAI : public HybridBossScriptAI
 {
 public:
-	MOONSCRIPT_FACTORY_FUNCTION(FetidTrollAI, MoonScriptBossAI);
-	FetidTrollAI(Creature* pCreature) : MoonScriptBossAI(pCreature)
+	HYBRIDSCRIPT_FUNCTION(FetidTrollAI, HybridBossScriptAI);
+	FetidTrollAI(Creature* pCreature) : HybridBossScriptAI(pCreature)
 	{
 	}
 
@@ -545,11 +545,11 @@ public:
 	}
 };
 
-class HulkingCorpseAI : public MoonScriptBossAI
+class HulkingCorpseAI : public HybridBossScriptAI
 {
 public:
-	MOONSCRIPT_FACTORY_FUNCTION(HulkingCorpseAI, MoonScriptBossAI);
-	HulkingCorpseAI(Creature* pCreature) : MoonScriptBossAI(pCreature)
+	HYBRIDSCRIPT_FUNCTION(HulkingCorpseAI, HybridBossScriptAI);
+	HulkingCorpseAI(Creature* pCreature) : HybridBossScriptAI(pCreature)
 	{
 	}
 
@@ -577,11 +577,11 @@ public:
 	}
 };
 
-class RisenShadowcasterAI : public MoonScriptBossAI
+class RisenShadowcasterAI : public HybridBossScriptAI
 {
 public:
-	MOONSCRIPT_FACTORY_FUNCTION(RisenShadowcasterAI, MoonScriptBossAI);
-	RisenShadowcasterAI(Creature* pCreature) : MoonScriptBossAI(pCreature)
+	HYBRIDSCRIPT_FUNCTION(RisenShadowcasterAI, HybridBossScriptAI);
+	RisenShadowcasterAI(Creature* pCreature) : HybridBossScriptAI(pCreature)
 	{
 	}
 
@@ -633,11 +633,11 @@ enum InformationKingDredd
 	EVENT_MENACING_CLAW = 7
 };
 
-class KingDreadAI : public MoonScriptBossAI
+class KingDreadAI : public HybridBossScriptAI
 {
 public:
-	MOONSCRIPT_FACTORY_FUNCTION(KingDreadAI, MoonScriptBossAI);
-	KingDreadAI(Creature* pCreature) : MoonScriptBossAI(pCreature)
+	HYBRIDSCRIPT_FUNCTION(KingDreadAI, HybridBossScriptAI);
+	KingDreadAI(Creature* pCreature) : HybridBossScriptAI(pCreature)
 	{
 	}
 
@@ -746,11 +746,11 @@ void spell_dred_raptor_call(Spell* sp, Unit* spellcaster, uint32 spellId, uint32
 	}	
 };
 
-class DrakkariGutripperAI : public MoonScriptBossAI
+class DrakkariGutripperAI : public HybridBossScriptAI
 {
 public:
-	MOONSCRIPT_FACTORY_FUNCTION(DrakkariGutripperAI, MoonScriptBossAI);
-	DrakkariGutripperAI(Creature* pCreature) : MoonScriptBossAI(pCreature)
+	HYBRIDSCRIPT_FUNCTION(DrakkariGutripperAI, HybridBossScriptAI);
+	DrakkariGutripperAI(Creature* pCreature) : HybridBossScriptAI(pCreature)
 	{
 	}
 
@@ -781,11 +781,11 @@ public:
 	}
 };
 
-class DrakkariScytheclawAI : public MoonScriptBossAI
+class DrakkariScytheclawAI : public HybridBossScriptAI
 {
 public:
-	MOONSCRIPT_FACTORY_FUNCTION(DrakkariScytheclawAI, MoonScriptBossAI);
-	DrakkariScytheclawAI(Creature* pCreature) : MoonScriptBossAI(pCreature)
+	HYBRIDSCRIPT_FUNCTION(DrakkariScytheclawAI, HybridBossScriptAI);
+	DrakkariScytheclawAI(Creature* pCreature) : HybridBossScriptAI(pCreature)
 	{
 	}
 
@@ -848,11 +848,11 @@ enum ProphetInformation
 	EVENT_TURN_BONES_REAL = 10
 };
 // TheProphetTaronjaAI
-class TheProphetTaronjaAI : public MoonScriptBossAI
+class TheProphetTaronjaAI : public HybridBossScriptAI
 {
 public:
-	MOONSCRIPT_FACTORY_FUNCTION(TheProphetTaronjaAI, MoonScriptBossAI);
-	TheProphetTaronjaAI(Creature* pCreature) : MoonScriptBossAI(pCreature)
+	HYBRIDSCRIPT_FUNCTION(TheProphetTaronjaAI, HybridBossScriptAI);
+	TheProphetTaronjaAI(Creature* pCreature) : HybridBossScriptAI(pCreature)
 	{
 	}
 

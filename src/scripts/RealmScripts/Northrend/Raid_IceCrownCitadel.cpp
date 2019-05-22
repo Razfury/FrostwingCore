@@ -328,12 +328,12 @@ struct BoneStormMoveTargetSelector : public std::unary_function<Unit*, bool>
 		Creature const* _source;
 };
 
-class LordMarrowgarAI : public MoonScriptBossAI
+class LordMarrowgarAI : public HybridBossScriptAI
 {
     public:
 
-        MOONSCRIPT_FACTORY_FUNCTION(LordMarrowgarAI, MoonScriptBossAI);
-        LordMarrowgarAI(Creature* pCreature) : MoonScriptBossAI(pCreature)
+        HYBRIDSCRIPT_FUNCTION(LordMarrowgarAI, HybridBossScriptAI);
+        LordMarrowgarAI(Creature* pCreature) : HybridBossScriptAI(pCreature)
        { 
 			_boneSlice = false;
 		}
@@ -493,6 +493,7 @@ class LordMarrowgarAI : public MoonScriptBossAI
 			}
 			break;
 			case EVENT_END_BONE_STORM:
+                _unit->InterruptSpell();
 				_unit->GetAIInterface()->StopMovement(0);
 				_unit->GetAIInterface()->AttackReaction(GetRandomPlayerTarget(), 1, 0);
 				events.PopEvent();
@@ -547,12 +548,12 @@ class LordMarrowgarAI : public MoonScriptBossAI
 
 #define IMPALED 69065
 
-class BoneSpikeAI : public MoonScriptBossAI
+class BoneSpikeAI : public HybridBossScriptAI
 {
     public:
 
-        MOONSCRIPT_FACTORY_FUNCTION(BoneSpikeAI, MoonScriptBossAI);
-        BoneSpikeAI(Creature* pCreature) : MoonScriptBossAI(pCreature)
+        HYBRIDSCRIPT_FUNCTION(BoneSpikeAI, HybridBossScriptAI);
+        BoneSpikeAI(Creature* pCreature) : HybridBossScriptAI(pCreature)
         {
             _unit->SetUInt64Value(UNIT_FIELD_FLAGS, 0);
             _unit->Despawn(8000, 0);
@@ -560,12 +561,12 @@ class BoneSpikeAI : public MoonScriptBossAI
 
 };
 
-class ColdFlameAI : public MoonScriptBossAI
+class ColdFlameAI : public HybridBossScriptAI
 {
 public:
 
-    MOONSCRIPT_FACTORY_FUNCTION(ColdFlameAI, MoonScriptBossAI);
-    ColdFlameAI(Creature* pCreature) : MoonScriptBossAI(pCreature)
+    HYBRIDSCRIPT_FUNCTION(ColdFlameAI, HybridBossScriptAI);
+    ColdFlameAI(Creature* pCreature) : HybridBossScriptAI(pCreature)
     {}
 
     void OnLoad()
@@ -606,10 +607,11 @@ public:
             events.Reset();
             break;
         }
-
         ParentClass::AIUpdate();
     }
 };
+
+
 
 void SetupICC(ScriptMgr* mgr)
 {

@@ -100,11 +100,11 @@ const WPWaitTimes DeathbringerJovaanWP[] =
     { { -3310.743896f, 2951.929199f, 171.132538f, 1.743588f, Flag_Walk }, 0 }
 };
 
-class DeathbringerJovaanAI : public MoonScriptCreatureAI
+class DeathbringerJovaanAI : public HybridCreatureScriptAI
 {
     public:
-        MOONSCRIPT_FACTORY_FUNCTION(DeathbringerJovaanAI, MoonScriptCreatureAI);
-        DeathbringerJovaanAI(Creature* pCreature) : MoonScriptCreatureAI(pCreature)
+        HYBRIDSCRIPT_FUNCTION(DeathbringerJovaanAI, HybridCreatureScriptAI);
+        DeathbringerJovaanAI(Creature* pCreature) : HybridCreatureScriptAI(pCreature)
         {
             mJovaanTimer = INVALIDATE_TIMER;
             mJovaanPhase = -1;
@@ -123,7 +123,7 @@ class DeathbringerJovaanAI : public MoonScriptCreatureAI
                 {
                     case 0:
                         {
-                            MoonScriptCreatureAI* pRazuunAI = SpawnCreature(21502, -3300.47f, 2927.22f, 173.870f, 2.42924f, false);    // Spawn Razuun
+                            HybridCreatureScriptAI* pRazuunAI = SpawnCreature(21502, -3300.47f, 2927.22f, 173.870f, 2.42924f, false);    // Spawn Razuun
                             if(pRazuunAI != NULL)
                             {
                                 pRazuunAI->GetUnit()->SetUInt64Value(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_ATTACKABLE_2);
@@ -209,11 +209,11 @@ class DeathbringerJovaanAI : public MoonScriptCreatureAI
 /////// Warbringer Razuun
 #define CN_WARBRINGER_RAZUUN    21502
 
-class WarbringerRazuunAI : public MoonScriptCreatureAI
+class WarbringerRazuunAI : public HybridCreatureScriptAI
 {
     public:
-        MOONSCRIPT_FACTORY_FUNCTION(WarbringerRazuunAI, MoonScriptCreatureAI);
-        WarbringerRazuunAI(Creature* pCreature) : MoonScriptCreatureAI(pCreature)
+        HYBRIDSCRIPT_FUNCTION(WarbringerRazuunAI, HybridCreatureScriptAI);
+        WarbringerRazuunAI(Creature* pCreature) : HybridCreatureScriptAI(pCreature)
         {
             RegisterAIUpdateEvent(1000);
             mRazuunTimer = AddTimer(800);
@@ -345,11 +345,11 @@ class NeltharakusTale_Gossip : public GossipScript
 /////// Warbringer Razuun
 #define CN_ENSLAVED_NETHERWING_DRAKE    21722
 
-class EnslavedNetherwingDrakeAI : public MoonScriptCreatureAI
+class EnslavedNetherwingDrakeAI : public HybridCreatureScriptAI
 {
     public:
-        MOONSCRIPT_FACTORY_FUNCTION(EnslavedNetherwingDrakeAI, MoonScriptCreatureAI);
-        EnslavedNetherwingDrakeAI(Creature* pCreature) : MoonScriptCreatureAI(pCreature)
+        HYBRIDSCRIPT_FUNCTION(EnslavedNetherwingDrakeAI, HybridCreatureScriptAI);
+        EnslavedNetherwingDrakeAI(Creature* pCreature) : HybridCreatureScriptAI(pCreature)
         {
             LocationExtra WayPoint = { _unit->GetPositionX(), _unit->GetPositionY() + 30, _unit->GetPositionZ() + 100, _unit->GetOrientation(), Flag_Fly };
             SetCanMove(false);

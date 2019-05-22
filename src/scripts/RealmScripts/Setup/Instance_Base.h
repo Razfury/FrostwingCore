@@ -159,7 +159,7 @@ class MoonInstanceScript : public InstanceScript
         Player* GetPlayerByGuid(uint32 pGuid);
         bool IsCombatInProgress();
 
-        // Timers - reimplementation from MoonScriptCreatureAI
+        // Timers - reimplementation from HybridCreatureScriptAI
         int32 AddTimer(int32 pDurationMillisec);
         int32 GetTimer(int32 pTimerId);
         void RemoveTimer(int32 & pTimerId);

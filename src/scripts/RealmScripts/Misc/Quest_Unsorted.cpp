@@ -97,10 +97,10 @@ class Kaliri : public CreatureAIScript
         }
 };
 
-class RabidThistleBear : public MoonScriptBossAI //Quest:2118
+class RabidThistleBear : public HybridBossScriptAI //Quest:2118
 {
-	MOONSCRIPT_FACTORY_FUNCTION(RabidThistleBear, MoonScriptBossAI);
-	RabidThistleBear(Creature* pCreature) : MoonScriptBossAI(pCreature)
+	HYBRIDSCRIPT_FUNCTION(RabidThistleBear, HybridBossScriptAI);
+	RabidThistleBear(Creature* pCreature) : HybridBossScriptAI(pCreature)
 	{
 	}
 
@@ -126,10 +126,10 @@ protected:
 	bool HasSpawned;
 };
 
-class CRabidThistleBear : public MoonScriptBossAI //Quest:2118 (Captured)
+class CRabidThistleBear : public HybridBossScriptAI //Quest:2118 (Captured)
 {
-	MOONSCRIPT_FACTORY_FUNCTION(CRabidThistleBear, MoonScriptBossAI);
-	CRabidThistleBear(Creature* pCreature) : MoonScriptBossAI(pCreature)
+	HYBRIDSCRIPT_FUNCTION(CRabidThistleBear, HybridBossScriptAI);
+	CRabidThistleBear(Creature* pCreature) : HybridBossScriptAI(pCreature)
 	{
 	}
 

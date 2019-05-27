@@ -21,12 +21,12 @@
 
 //////////////////////////////////////////////////////////////////////////////////////////
 //Drak'Tharon Keep
-class InstanceDrakTharonKeepScript : public HybridInstanceScript
+class InstanceDrakTharonKeepScript : public MoonInstanceScript
 {
     public:
 
-        HYBRIDSCRIPT_INSTANCE_FUNCTION(InstanceDrakTharonKeepScript, HybridInstanceScript);
-        InstanceDrakTharonKeepScript(MapMgr* pMapMgr) : HybridInstanceScript(pMapMgr)
+        MOONSCRIPT_INSTANCE_FACTORY_FUNCTION(InstanceDrakTharonKeepScript, MoonInstanceScript);
+        InstanceDrakTharonKeepScript(MapMgr* pMapMgr) : MoonInstanceScript(pMapMgr)
         {
             // Way to select bosses
             BuildEncounterMap();

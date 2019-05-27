@@ -107,7 +107,7 @@ MapMgr* mInstance;
 
 ///////////////////////////////////////////////////////
 //TheVioletHold Instance
-class TheVioletHoldScript : public HybridInstanceScript
+class TheVioletHoldScript : public MoonInstanceScript
 {
     friend class SinclariGossip; // Friendship forever ;-)
 	friend class triggervh1;
@@ -119,8 +119,8 @@ class TheVioletHoldScript : public HybridInstanceScript
 
     public:
 
-        HYBRIDSCRIPT_INSTANCE_FUNCTION(TheVioletHoldScript, HybridInstanceScript);
-        TheVioletHoldScript(MapMgr* pMapMgr) : HybridInstanceScript(pMapMgr)
+        MOONSCRIPT_INSTANCE_FACTORY_FUNCTION(TheVioletHoldScript, MoonInstanceScript);
+        TheVioletHoldScript(MapMgr* pMapMgr) : MoonInstanceScript(pMapMgr)
         {
 			m_numPortal = 0;
 

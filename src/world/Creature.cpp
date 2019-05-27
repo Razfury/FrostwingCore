@@ -1588,52 +1588,6 @@ void Creature::Load(CreatureProto* proto_, float x, float y, float z, float o)
     SetEntry(proto->Id);
     SetScale(proto->Scale);
 
-    if (GetMapMgr()->iInstanceMode == RAID_25MAN_NORMAL || GetMapMgr()->iInstanceMode == DUNGEON_HEROIC)
-    {
-        CreatureDifficulty* difficultyProto = CreatureDifficultyStorage.LookupEntry(proto->Id);
-        if (difficultyProto != NULL) // We found an entry that matches our npc for a higher difficulty!
-            if (difficultyProto->difficulty_1 > 0) // Found 25man normal and or heroic dungeon stats
-            {
-                proto = CreatureProtoStorage.LookupEntry(difficultyProto->difficulty_1); // set 25man normal and or heroic dungeon stats
-            }
-            else if (difficultyProto->difficulty_1 == 0) // Could not find 25man normal and or heroic dungeon stats
-            {
-                proto = CreatureProtoStorage.LookupEntry(proto->Id); // Set the orginal id back.
-            }
-    }
-    if (GetMapMgr()->iInstanceMode == RAID_10MAN_HEROIC)
-    {
-        CreatureDifficulty* difficultyProto = CreatureDifficultyStorage.LookupEntry(proto->Id);
-        if (difficultyProto != NULL) // We found an entry that matches our npc for a higher difficulty!
-            if (difficultyProto->difficulty_2 > 0) // Found 10man heroic stats
-            {
-                proto = CreatureProtoStorage.LookupEntry(difficultyProto->difficulty_2); // set 10man heroic stats 
-            }
-            else if (difficultyProto->difficulty_2 == 0) // Could not find 10man heroic stats
-            {
-                proto = CreatureProtoStorage.LookupEntry(proto->Id); // Set the orginal id back (10man normal)
-            }
-    }
-    if (GetMapMgr()->iInstanceMode == RAID_25MAN_HEROIC)
-    {
-        CreatureDifficulty* difficultyProto = CreatureDifficultyStorage.LookupEntry(proto->Id);
-        if (difficultyProto != NULL) // We found an entry that matches our npc for a higher difficulty!
-        {
-            if (difficultyProto->difficulty_3 > 0) // Found 25man heroic stats
-            {
-                proto = CreatureProtoStorage.LookupEntry(difficultyProto->difficulty_3); // Set 25man heroic stats
-            }
-            else if (difficultyProto->difficulty_3 == 0) // Could not find heroic stats for entry so set 25 man normal stats
-            {
-                proto = CreatureProtoStorage.LookupEntry(difficultyProto->difficulty_1); // 25man normal stats
-            }
-            else if (difficultyProto->difficulty_1 == 0 && difficultyProto->difficulty_3 == 0) // No 25man Normal or Heroic stats
-            {
-                proto = CreatureProtoStorage.LookupEntry(proto->Id); // Set the orginal id back.
-            }
-        }
-    }
-
     uint32 health = proto->MinHealth + RandomUInt(proto->MaxHealth - proto->MinHealth);
 
     SetHealth(health);

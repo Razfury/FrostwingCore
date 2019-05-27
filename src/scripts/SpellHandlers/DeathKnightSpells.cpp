@@ -19,29 +19,6 @@
 
 #include "Setup.h"
 
-void WanderingPlague(Spell* sp, Unit* spellcaster, uint32 spellId, uint32 SpellEffectType)
-{
-    Player* player = sp->p_caster;
-
-    if (spellId == 50526)
-    {
-        if (SpellEffectType == SPELL_EFFECT_DUMMY)
-        {
-            Unit* unitTarget = sp->GetUnitTarget();
-            if (sp->u_caster != NULL && unitTarget != NULL)
-            {
-                if (unitTarget->isTrainingDummy() == false)
-                {
-                    // Move Effect
-                    unitTarget->CastSpellAoF(sp->u_caster->GetPositionX(), sp->u_caster->GetPositionY(), sp->u_caster->GetPositionZ(), dbcSpell.LookupEntryForced(49575), true);
-                    sp->u_caster->CastSpell(unitTarget, 51399, true); // Taunt Effect
-                }
-            }
-        }
-    }
-};
-
-
 #define BLOOD_PLAGUE 55078
 #define FROST_FEVER 55095
 

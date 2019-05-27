@@ -20,17 +20,17 @@
 #include "Setup.h"
 
 
-HybridInstanceScript::HybridInstanceScript(MapMgr* pMapMgr) : InstanceScript(pMapMgr)
+MoonInstanceScript::MoonInstanceScript(MapMgr* pMapMgr) : InstanceScript(pMapMgr)
 {
     mUpdateFrequency = DEFAULT_UPDATE_FREQUENCY;
     mTimerIdCounter = 0;
 };
 
-HybridInstanceScript::~HybridInstanceScript()
+MoonInstanceScript::~MoonInstanceScript()
 {
 };
 
-Creature* HybridInstanceScript::GetCreatureBySqlId(uint32 pSqlId)
+Creature* MoonInstanceScript::GetCreatureBySqlId(uint32 pSqlId)
 {
     if (pSqlId == 0)
         return NULL;
@@ -38,7 +38,7 @@ Creature* HybridInstanceScript::GetCreatureBySqlId(uint32 pSqlId)
     return mInstance->GetSqlIdCreature(pSqlId);
 };
 
-Creature* HybridInstanceScript::GetCreatureByGuid(uint32 pGuid)
+Creature* MoonInstanceScript::GetCreatureByGuid(uint32 pGuid)
 {
     if (pGuid == 0)
         return NULL;
@@ -46,7 +46,7 @@ Creature* HybridInstanceScript::GetCreatureByGuid(uint32 pGuid)
     return mInstance->GetCreature(pGuid);
 };
 
-Creature* HybridInstanceScript::FindClosestCreatureOnMap(uint32 pEntry, float pX, float pY, float pZ)
+Creature* MoonInstanceScript::FindClosestCreatureOnMap(uint32 pEntry, float pX, float pY, float pZ)
 {
     CreatureSet Creatures = FindCreaturesOnMap(pEntry);
 
@@ -70,13 +70,13 @@ Creature* HybridInstanceScript::FindClosestCreatureOnMap(uint32 pEntry, float pX
     return NearestCreature;
 };
 
-Creature* HybridInstanceScript::SpawnCreature(uint32 pEntry, float pX, float pY, float pZ, float pO)
+Creature* MoonInstanceScript::SpawnCreature(uint32 pEntry, float pX, float pY, float pZ, float pO)
 {
     Creature* NewCreature = mInstance->GetInterface()->SpawnCreature(pEntry, pX, pY, pZ, pO, true, true, 0, 0);
     return NewCreature;
 };
 
-Creature* HybridInstanceScript::SpawnCreature(uint32 pEntry, float pX, float pY, float pZ, float pO, uint32 pFactionId)
+Creature* MoonInstanceScript::SpawnCreature(uint32 pEntry, float pX, float pY, float pZ, float pO, uint32 pFactionId)
 {
     Creature* NewCreature = mInstance->GetInterface()->SpawnCreature(pEntry, pX, pY, pZ, pO, true, true, 0, 0);
     if (NewCreature != NULL)
@@ -85,7 +85,7 @@ Creature* HybridInstanceScript::SpawnCreature(uint32 pEntry, float pX, float pY,
     return NewCreature;
 };
 
-Creature* HybridInstanceScript::PushCreature(uint32 pEntry, float pX, float pY, float pZ, float pO, uint32 pFaction)
+Creature* MoonInstanceScript::PushCreature(uint32 pEntry, float pX, float pY, float pZ, float pO, uint32 pFaction)
 {
     CreatureProto* cp = CreatureProtoStorage.LookupEntry(pEntry);
     Creature* c = mInstance->CreateCreature(pEntry);
@@ -101,21 +101,21 @@ Creature* HybridInstanceScript::PushCreature(uint32 pEntry, float pX, float pY, 
     return c;
 }
 
-playerMap_Instance HybridInstanceScript::AddPlayerToSet(Player* plr)
+playerMap_Instance MoonInstanceScript::AddPlayerToSet(Player* plr)
 {
 	playerMap_Instance AddSet;
 	AddSet.insert(plr);
 	return AddSet;
 }
 
-playerMap_Instance HybridInstanceScript::RemovePlayerFromSet(Player* plr)
+playerMap_Instance MoonInstanceScript::RemovePlayerFromSet(Player* plr)
 {
 	playerMap_Instance AddSet;
 		AddSet.erase(plr);
 		return AddSet;
 }
 
-void HybridInstanceScript::sendLFGRewards()
+void MoonInstanceScript::sendLFGRewards()
 {
 	for (PlayerStorageMap::iterator itr = mInstance->m_PlayerStorage.begin(); itr != mInstance->m_PlayerStorage.end(); ++itr)
 	{
@@ -133,7 +133,7 @@ void HybridInstanceScript::sendLFGRewards()
 	};
 };
 
-CreatureSet HybridInstanceScript::FindCreaturesOnMap(uint32 pEntry)
+CreatureSet MoonInstanceScript::FindCreaturesOnMap(uint32 pEntry)
 {
     Creature* CurrentCreature = NULL;
     CreatureSet ReturnSet;
@@ -150,7 +150,7 @@ CreatureSet HybridInstanceScript::FindCreaturesOnMap(uint32 pEntry)
     return ReturnSet;
 };
 
-GameObject* HybridInstanceScript::FindClosestGameObjectOnMap(uint32 pEntry, float pX, float pY, float pZ)
+GameObject* MoonInstanceScript::FindClosestGameObjectOnMap(uint32 pEntry, float pX, float pY, float pZ)
 {
     GameObjectSet GameObjects = FindGameObjectsOnMap(pEntry);
 
@@ -174,13 +174,13 @@ GameObject* HybridInstanceScript::FindClosestGameObjectOnMap(uint32 pEntry, floa
     return NearestObject;
 };
 
-GameObject* HybridInstanceScript::SpawnGameObject(uint32 pEntry, float pX, float pY, float pZ, float pO)
+GameObject* MoonInstanceScript::SpawnGameObject(uint32 pEntry, float pX, float pY, float pZ, float pO)
 {
     GameObject* pNewGO = mInstance->GetInterface()->SpawnGameObject(pEntry, pX, pY, pZ, pO, true, 0, 0);
     return pNewGO;
 };
 
-GameObjectSet HybridInstanceScript::FindGameObjectsOnMap(uint32 pEntry)
+GameObjectSet MoonInstanceScript::FindGameObjectsOnMap(uint32 pEntry)
 {
     GameObject* CurrentObject = NULL;
     GameObjectSet ReturnSet;
@@ -197,7 +197,7 @@ GameObjectSet HybridInstanceScript::FindGameObjectsOnMap(uint32 pEntry)
     return ReturnSet;
 };
 
-GameObject* HybridInstanceScript::GetGameObjectBySqlId(uint32 pSqlId)
+GameObject* MoonInstanceScript::GetGameObjectBySqlId(uint32 pSqlId)
 {
     if (pSqlId == 0)
         return NULL;
@@ -205,7 +205,7 @@ GameObject* HybridInstanceScript::GetGameObjectBySqlId(uint32 pSqlId)
     return mInstance->GetSqlIdGameObject(pSqlId);
 };
 
-GameObject* HybridInstanceScript::GetGameObjectByGuid(uint32 pGuid)
+GameObject* MoonInstanceScript::GetGameObjectByGuid(uint32 pGuid)
 {
     if (pGuid == 0)
         return NULL;
@@ -213,7 +213,7 @@ GameObject* HybridInstanceScript::GetGameObjectByGuid(uint32 pGuid)
     return mInstance->GetGameObject(pGuid);
 };
 
-void HybridInstanceScript::AddGameObjectStateByEntry(uint32 pEntry, GameObjectState pState, bool pUseQuery)
+void MoonInstanceScript::AddGameObjectStateByEntry(uint32 pEntry, GameObjectState pState, bool pUseQuery)
 {
     if (pEntry == 0)
         return;
@@ -255,7 +255,7 @@ void HybridInstanceScript::AddGameObjectStateByEntry(uint32 pEntry, GameObjectSt
     };
 };
 
-void HybridInstanceScript::AddGameObjectStateById(uint32 pId, GameObjectState pState)
+void MoonInstanceScript::AddGameObjectStateById(uint32 pId, GameObjectState pState)
 {
     if (pId == 0)
         return;
@@ -288,7 +288,7 @@ void HybridInstanceScript::AddGameObjectStateById(uint32 pId, GameObjectState pS
     };
 };
 
-float HybridInstanceScript::GetRangeToObject(Object* pObjectA, Object* pObjectB)
+float MoonInstanceScript::GetRangeToObject(Object* pObjectA, Object* pObjectB)
 {
     if (pObjectA == NULL || pObjectB == NULL)
         return 0.0f;
@@ -296,7 +296,7 @@ float HybridInstanceScript::GetRangeToObject(Object* pObjectA, Object* pObjectB)
     return GetRangeToObject(pObjectA->GetPositionX(), pObjectA->GetPositionY(), pObjectA->GetPositionZ(), pObjectB->GetPositionX(), pObjectB->GetPositionY(), pObjectB->GetPositionZ());
 };
 
-float HybridInstanceScript::GetRangeToObject(Object* pObject, float pX, float pY, float pZ)
+float MoonInstanceScript::GetRangeToObject(Object* pObject, float pX, float pY, float pZ)
 {
     if (pObject == NULL)
         return 0.0f;
@@ -304,7 +304,7 @@ float HybridInstanceScript::GetRangeToObject(Object* pObject, float pX, float pY
     return GetRangeToObject(pObject->GetPositionX(), pObject->GetPositionY(), pObject->GetPositionZ(), pX, pY, pZ);
 };
 
-float HybridInstanceScript::GetRangeToObject(float pX1, float pY1, float pZ1, float pX2, float pY2, float pZ2)
+float MoonInstanceScript::GetRangeToObject(float pX1, float pY1, float pZ1, float pX2, float pY2, float pZ2)
 {
     float dX = pX1 - pX2;
     float dY = pY1 - pY2;
@@ -313,17 +313,17 @@ float HybridInstanceScript::GetRangeToObject(float pX1, float pY1, float pZ1, fl
     return sqrtf(dX * dX + dY * dY + dZ * dZ);
 };
 
-bool HybridInstanceScript::HasPlayers()
+bool MoonInstanceScript::HasPlayers()
 {
     return mInstance->GetPlayerCount() > 0;
 };
 
-size_t HybridInstanceScript::GetPlayerCount()
+size_t MoonInstanceScript::GetPlayerCount()
 {
     return mInstance->GetPlayerCount();
 };
 
-Player* HybridInstanceScript::GetPlayerByGuid(uint32 pGuid)
+Player* MoonInstanceScript::GetPlayerByGuid(uint32 pGuid)
 {
     if (pGuid == 0)
         return NULL;
@@ -331,19 +331,19 @@ Player* HybridInstanceScript::GetPlayerByGuid(uint32 pGuid)
     return mInstance->GetPlayer(pGuid);
 };
 
-bool HybridInstanceScript::IsCombatInProgress()
+bool MoonInstanceScript::IsCombatInProgress()
 {
     return mInstance->_combatProgress.size() > 0;
 };
 
-int32 HybridInstanceScript::AddTimer(int32 pDurationMillisec)
+int32 MoonInstanceScript::AddTimer(int32 pDurationMillisec)
 {
     int32 Index = mTimerIdCounter++;
     mTimers.push_back(std::make_pair(Index, pDurationMillisec));
     return Index;
 }
 
-int32 HybridInstanceScript::GetTimer(int32 pTimerId)
+int32 MoonInstanceScript::GetTimer(int32 pTimerId)
 {
     for (TimerArray::iterator TimerIter = mTimers.begin(); TimerIter != mTimers.end(); ++TimerIter)
     {
@@ -354,7 +354,7 @@ int32 HybridInstanceScript::GetTimer(int32 pTimerId)
     return 0;
 };
 
-void HybridInstanceScript::RemoveTimer(int32 & pTimerId)
+void MoonInstanceScript::RemoveTimer(int32 & pTimerId)
 {
     for (TimerArray::iterator TimerIter = mTimers.begin(); TimerIter != mTimers.end(); ++TimerIter)
     {
@@ -367,7 +367,7 @@ void HybridInstanceScript::RemoveTimer(int32 & pTimerId)
     };
 };
 
-void HybridInstanceScript::ResetTimer(int32 pTimerId, int32 pDurationMillisec)
+void MoonInstanceScript::ResetTimer(int32 pTimerId, int32 pDurationMillisec)
 {
     for (TimerArray::iterator TimerIter = mTimers.begin(); TimerIter != mTimers.end(); ++TimerIter)
     {
@@ -379,7 +379,7 @@ void HybridInstanceScript::ResetTimer(int32 pTimerId, int32 pDurationMillisec)
     };
 };
 
-bool HybridInstanceScript::IsTimerFinished(int32 pTimerId)
+bool MoonInstanceScript::IsTimerFinished(int32 pTimerId)
 {
     for (TimerArray::iterator TimerIter = mTimers.begin(); TimerIter != mTimers.end(); ++TimerIter)
     {
@@ -390,18 +390,18 @@ bool HybridInstanceScript::IsTimerFinished(int32 pTimerId)
     return false;
 };
 
-void HybridInstanceScript::CancelAllTimers()
+void MoonInstanceScript::CancelAllTimers()
 {
     mTimers.clear();
     mTimerIdCounter = 0;
 };
 
-void HybridInstanceScript::RegisterScriptUpdateEvent()
+void MoonInstanceScript::RegisterScriptUpdateEvent()
 {
     RegisterUpdateEvent(mUpdateFrequency);
 };
 
-void HybridInstanceScript::SetUpdateEventFreq(uint32 pUpdateFreq)
+void MoonInstanceScript::SetUpdateEventFreq(uint32 pUpdateFreq)
 {
     if (mUpdateFrequency != pUpdateFreq)
     {
@@ -410,12 +410,12 @@ void HybridInstanceScript::SetUpdateEventFreq(uint32 pUpdateFreq)
     };
 };
 
-uint32 HybridInstanceScript::GetUpdateEventFreq()
+uint32 MoonInstanceScript::GetUpdateEventFreq()
 {
     return mUpdateFrequency;
 };
 
-void HybridInstanceScript::SetCellForcedStates(float pMinX, float pMaxX, float pMinY, float pMaxY, bool pActivate)
+void MoonInstanceScript::SetCellForcedStates(float pMinX, float pMaxX, float pMinY, float pMaxY, bool pActivate)
 {
     if (pMinX == pMaxX || pMinY == pMaxY)
         return;
@@ -449,44 +449,44 @@ void HybridInstanceScript::SetCellForcedStates(float pMinX, float pMaxX, float p
     };
 };
 
-void HybridInstanceScript::OnPlayerDeath(Player* pVictim, Unit* pKiller)
+void MoonInstanceScript::OnPlayerDeath(Player* pVictim, Unit* pKiller)
 {
 };
 
-void HybridInstanceScript::OnPlayerEnter(Player* pPlayer)
+void MoonInstanceScript::OnPlayerEnter(Player* pPlayer)
 {
 };
 
-void HybridInstanceScript::OnAreaTrigger(Player* pPlayer, uint32 pAreaId)
+void MoonInstanceScript::OnAreaTrigger(Player* pPlayer, uint32 pAreaId)
 {
 };
 
-void HybridInstanceScript::OnZoneChange(Player* pPlayer, uint32 pNewZone, uint32 pOldZone)
+void MoonInstanceScript::OnZoneChange(Player* pPlayer, uint32 pNewZone, uint32 pOldZone)
 {
 };
 
-void HybridInstanceScript::SetInstanceData(uint32 pType, uint32 pIndex, uint32 pData)
+void MoonInstanceScript::SetInstanceData(uint32 pType, uint32 pIndex, uint32 pData)
 {
 };
 
-uint32 HybridInstanceScript::GetInstanceData(uint32 pType, uint32 pIndex)
+uint32 MoonInstanceScript::GetInstanceData(uint32 pType, uint32 pIndex)
 {
     return 0;
 };
 
-void HybridInstanceScript::OnCreatureDeath(Creature* pVictim, Unit* pKiller)
+void MoonInstanceScript::OnCreatureDeath(Creature* pVictim, Unit* pKiller)
 {
 };
 
-void HybridInstanceScript::OnCreaturePushToWorld(Creature* pCreature)
+void MoonInstanceScript::OnCreaturePushToWorld(Creature* pCreature)
 {
 };
 
-void HybridInstanceScript::OnGameObjectActivate(GameObject* pGameObject, Player* pPlayer)
+void MoonInstanceScript::OnGameObjectActivate(GameObject* pGameObject, Player* pPlayer)
 {
 };
 
-void HybridInstanceScript::OnGameObjectPushToWorld(GameObject* pGameObject)
+void MoonInstanceScript::OnGameObjectPushToWorld(GameObject* pGameObject)
 {
     // Dunno how part of those would happen
     if (mGameObjects.size() == 0 || pGameObject == NULL)
@@ -497,25 +497,25 @@ void HybridInstanceScript::OnGameObjectPushToWorld(GameObject* pGameObject)
         pGameObject->SetState((*Iter).second);
 };
 
-GameObject* HybridInstanceScript::GetObjectForOpenLock(Player* pCaster, Spell* pSpell, SpellEntry* pSpellEntry)
+GameObject* MoonInstanceScript::GetObjectForOpenLock(Player* pCaster, Spell* pSpell, SpellEntry* pSpellEntry)
 {
     return NULL;
 };
 
-void HybridInstanceScript::SetLockOptions(uint32 pEntryId, GameObject* pGameObject)
+void MoonInstanceScript::SetLockOptions(uint32 pEntryId, GameObject* pGameObject)
 {
 };
 
-uint32 HybridInstanceScript::GetRespawnTimeForCreature(uint32 pEntryId, Creature* pCreature)
+uint32 MoonInstanceScript::GetRespawnTimeForCreature(uint32 pEntryId, Creature* pCreature)
 {
     return 240000;
 };
 
-void HybridInstanceScript::OnLoad()
+void MoonInstanceScript::OnLoad()
 {
 };
 
-void HybridInstanceScript::UpdateEvent()
+void MoonInstanceScript::UpdateEvent()
 {
     //uint32 CurrentTime = static_cast< uint32 >(time(NULL));
     for (TimerArray::iterator TimerIter = mTimers.begin(); TimerIter != mTimers.end(); ++TimerIter)
@@ -524,12 +524,12 @@ void HybridInstanceScript::UpdateEvent()
     };
 };
 
-void HybridInstanceScript::Destroy()
+void MoonInstanceScript::Destroy()
 {
     delete this;
 };
 
-void HybridInstanceScript::BuildEncounterMap()
+void MoonInstanceScript::BuildEncounterMap()
 {
     if (mInstance->pInstance == NULL)
         return;
@@ -569,7 +569,7 @@ void HybridInstanceScript::BuildEncounterMap()
 };
 
 // Dynamic data creation that still involves MySQL
-void HybridInstanceScript::BuildEncounterMapWithEntries(IdVector pEntries)
+void MoonInstanceScript::BuildEncounterMapWithEntries(IdVector pEntries)
 {
     if (mInstance->pInstance == NULL || pEntries.size() == 0)
         return;
@@ -619,7 +619,7 @@ void HybridInstanceScript::BuildEncounterMapWithEntries(IdVector pEntries)
 };
 
 // Static data creation without MySQL use
-void HybridInstanceScript::BuildEncounterMapWithIds(IdVector pIds)
+void MoonInstanceScript::BuildEncounterMapWithIds(IdVector pIds)
 {
     // Won't work with spawns that are not in world - would work well with instance fully loaded
     if (mInstance->pInstance == NULL || pIds.size() == 0)
@@ -654,7 +654,7 @@ void HybridInstanceScript::BuildEncounterMapWithIds(IdVector pIds)
     };
 };
 
-IdVector HybridInstanceScript::BuildIdVector(uint32 pCount, ...)
+IdVector MoonInstanceScript::BuildIdVector(uint32 pCount, ...)
 {
     IdVector NewVector;
     va_list List;
@@ -668,7 +668,7 @@ IdVector HybridInstanceScript::BuildIdVector(uint32 pCount, ...)
     return NewVector;
 };
 
-IdSet HybridInstanceScript::BuildIdSet(uint32 pCount, ...)
+IdSet MoonInstanceScript::BuildIdSet(uint32 pCount, ...)
 {
     IdSet NewSet;
     va_list List;

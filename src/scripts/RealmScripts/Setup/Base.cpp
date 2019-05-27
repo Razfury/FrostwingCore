@@ -420,10 +420,10 @@ bool HybridCreatureScriptAI::IsHeroic()
     return true;
 };
 
-HybridInstanceScript* HybridCreatureScriptAI::GetInstanceScript()
+MoonInstanceScript* HybridCreatureScriptAI::GetInstanceScript()
 {
     MapMgr* pInstance = _unit->GetMapMgr();
-    return (pInstance) ? TO< HybridInstanceScript* >(pInstance->GetScript()) : NULL;
+    return (pInstance) ? TO< MoonInstanceScript* >(pInstance->GetScript()) : NULL;
 };
 
 void HybridCreatureScriptAI::SendLFGReward(Unit* creature_rewarder)

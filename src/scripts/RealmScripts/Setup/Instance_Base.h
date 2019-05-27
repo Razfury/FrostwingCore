@@ -24,7 +24,7 @@
 #define INVALIDATE_TIMER -1
 #define DEFAULT_UPDATE_FREQUENCY 1000       //milliseconds
 
-#define HYBRIDSCRIPT_INSTANCE_FUNCTION(ClassName, ParentClassName) \
+#define MOONSCRIPT_INSTANCE_FACTORY_FUNCTION(ClassName, ParentClassName) \
 public:\
     ADD_INSTANCE_FACTORY_FUNCTION(ClassName);\
     typedef ParentClassName ParentClass;
@@ -95,7 +95,7 @@ struct BossData
     EncounterState mState;
 };
 
-class HybridInstanceScript;
+class MoonInstanceScript;
 
 typedef std::map<uint32, BossData> EncounterMap;
 typedef std::map<uint32, GameObjectState> GameObjectEntryMap;
@@ -119,12 +119,12 @@ typedef std::map<uint32, uint32> WorldStateMap;
 typedef set<Player*> playerMap_Instance;
 
 //////////////////////////////////////////////////////////////////////////////////////////
-//Class HybridInstanceScript
-class HybridInstanceScript : public InstanceScript
+//Class MoonInstanceScript
+class MoonInstanceScript : public InstanceScript
 {
     public:
-        HybridInstanceScript(MapMgr* pMapMgr);
-        virtual ~HybridInstanceScript();
+        MoonInstanceScript(MapMgr* pMapMgr);
+        virtual ~MoonInstanceScript();
 
 		playerMap_Instance AddPlayerToSet(Player* plr);
 		playerMap_Instance RemovePlayerFromSet(Player* plr);

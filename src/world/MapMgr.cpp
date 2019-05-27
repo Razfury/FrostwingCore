@@ -1211,7 +1211,7 @@ bool MapMgr::Do()
     {
         GameObject* obj = CreateGameObject((*itr)->entry);
         obj->Load((*itr));
-        //PushStaticObject(obj);
+        PushStaticObject(obj);
     }
 
     // Call script OnLoad virtual procedure
@@ -1221,7 +1221,7 @@ bool MapMgr::Do()
     {
         Creature* obj = CreateCreature((*itr)->entry);
         obj->Load(*itr, 0, pMapInfo);
-        //PushStaticObject(obj);
+        PushStaticObject(obj);
     }
 
     /* load corpses */

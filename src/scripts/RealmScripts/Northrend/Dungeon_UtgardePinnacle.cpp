@@ -18,67 +18,6 @@
 #include "Setup/Setup.h"
 #include "Dungeon_UtgardePinnacle.h"
 
-class InstanceUtgardePinnacleScript : public HybridInstanceScript
-{
-public:
-
-    HYBRIDSCRIPT_INSTANCE_FUNCTION(InstanceUtgardePinnacleScript, HybridInstanceScript);
-    InstanceUtgardePinnacleScript(MapMgr* pMapMgr) : HybridInstanceScript(pMapMgr)
-    {
-        // Way to select bosses
-        BuildEncounterMap();
-        if (mEncounters.size() == 0)
-            return;
-
-        for (EncounterMap::iterator Iter = mEncounters.begin(); Iter != mEncounters.end(); ++Iter)
-        {
-            if ((*Iter).second.mState != State_Finished)
-                continue;
-        }
-    }
-
-    void OnGameObjectPushToWorld(GameObject* pGameObject) { }
-
-    void SetInstanceData(uint32 pType, uint32 pIndex, uint32 pData)
-    {
-        if (pType != Data_EncounterState || pIndex == 0)
-            return;
-
-        EncounterMap::iterator Iter = mEncounters.find(pIndex);
-        if (Iter == mEncounters.end())
-            return;
-
-        (*Iter).second.mState = (EncounterState)pData;
-    }
-
-    uint32 GetInstanceData(uint32 pType, uint32 pIndex)
-    {
-        if (pType != Data_EncounterState || pIndex == 0)
-            return 0;
-
-        EncounterMap::iterator Iter = mEncounters.find(pIndex);
-        if (Iter == mEncounters.end())
-            return 0;
-
-        return (*Iter).second.mState;
-    }
-
-    void OnPlayerEnter(Player* player)
-    {
-    }
-
-    void OnCreatureDeath(Creature* pCreature, Unit* pUnit)
-    {
-        EncounterMap::iterator Iter = mEncounters.find(pCreature->GetEntry());
-        if (Iter == mEncounters.end())
-            return;
-
-        (*Iter).second.mState = State_Finished;
-
-        return;
-    }
-};
-
 //Svala Sorrowgrave
 class SvalaSorrowgraveAI : public HybridBossScriptAI
 {
@@ -114,6 +53,11 @@ public:
         _unit->SetUInt64Value(UNIT_FIELD_FLAGS, 2);
         _unit->SetUInt32Value(UNIT_VIRTUAL_ITEM_SLOT_ID + 0, uint32(40343));
         RegisterAIUpdateEvent(1000);
+        if (IsHeroic()) // This should be set by the database but it doesn't seem to work.
+        {
+            _unit->SetMaxHealth(431392);
+            _unit->SetHealth(_unit->GetMaxHealth());
+        }
         SetPhase(1);
         Emote("The sensation is... beyond my imagining. I am yours to command, my king.", Text_Yell, 13857);
         Creature* Arthas = _unit->GetMapMgr()->GetInterface()->GetCreatureNearestCoords(294.392f, -363.229f, 92.63f, 29280);
@@ -271,21 +215,21 @@ public:
         {
         case EVENT_SVALA_START:
             Emote("My liege! I have done as you asked, and now beseech you for your blessing!", Text_Yell, 13856);
-            SpawnCreature(NPC_ARTHAS, 294.392f, -363.229f, 92.63f, 1.44f); // Image of Arthas
+            SpawnCreature(29280, 294.392f, -363.229f, 92.63f, 1.44f); // Image of Arthas
             events2.ScheduleEvent(EVENT_SVALA_TALK1, 8000);
             break;
         case EVENT_SVALA_TALK1:
-            if (ForceCreatureFind(NPC_ARTHAS))
+            if (ForceCreatureFind(29280))
             {
-                ForceCreatureFind(NPC_ARTHAS)->SendChatMessage(14, 0, "Your sacrifice is a testament to your obedience. Indeed you are worthy of this charge. Arise, and forever be known as Svala Sorrowgrave!");
+                ForceCreatureFind(29280)->SendChatMessage(14, 0, "Your sacrifice is a testament to your obedience. Indeed you are worthy of this charge. Arise, and forever be known as Svala Sorrowgrave!");
                 _unit->PlaySoundToSet(14732);
             }
             events2.ScheduleEvent(EVENT_SVALA_TALK2, 9000);
             break;
         case EVENT_SVALA_TALK2:
-            if (ForceCreatureFind(NPC_ARTHAS))
+            if (ForceCreatureFind(29280))
             {
-                ForceCreatureFind(NPC_ARTHAS)->CastSpell(_unit, 54142, false);
+                ForceCreatureFind(29280)->CastSpell(_unit, 54142, false);
                 _unit->CastSpell(_unit, 54140, true);
             }
             events2.ScheduleEvent(EVENT_SVALA_TALK3, 3000);
@@ -298,9 +242,9 @@ public:
             break;
         case 30:
         {
-            WorldPacket data(SMSG_SPLINE_MOVE_SET_HOVER, 9);
-            data.append(_unit->GetGUID());
-            _unit->SendMessageToSet(&data, false);
+            /*WorldPacket data(SMSG_SPLINE_MOVE_SET_HOVER, 9);
+            data.append(_unit->GetPackGUID());
+            _unit->SendMessageToSet(&data, false);*/
             break;
         }
         case EVENT_SVALA_TALK4:

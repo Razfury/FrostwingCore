@@ -57,14 +57,14 @@ enum IceCrown_Encounters
 
 //////////////////////////////////////////////////////////////////////////////////////////
 //IceCrownCitadel Instance
-class IceCrownCitadelScript : public MoonInstanceScript
+class IceCrownCitadelScript : public HybridInstanceScript
 {
     friend class ICCTeleporterAI; // Friendship forever ;-)
 
     public:
 
-        MOONSCRIPT_INSTANCE_FACTORY_FUNCTION(IceCrownCitadelScript, MoonInstanceScript);
-        IceCrownCitadelScript(MapMgr* pMapMgr) : MoonInstanceScript(pMapMgr)
+        HYBRIDSCRIPT_INSTANCE_FUNCTION(IceCrownCitadelScript, HybridInstanceScript);
+        IceCrownCitadelScript(MapMgr* pMapMgr) : HybridInstanceScript(pMapMgr)
         {
             // Way to select bosses
             BuildEncounterMap();

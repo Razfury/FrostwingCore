@@ -723,7 +723,7 @@ class HybridCreatureScriptAI : public CreatureAIScript
         //Instances
         bool IsHeroic();
         int32 HeroicInt(int32 pNormal, int32 pHeroic) { return IsHeroic() ? pHeroic : pNormal; }
-        MoonInstanceScript* GetInstanceScript();
+        HybridInstanceScript* GetInstanceScript();
 
         void CastOnAllInrangePlayers(uint32 pSpellId, bool pTriggered = false);
         void CastOnInrangePlayers(float pDistanceMin, float pDistanceMax, uint32 pSpellId, bool pTriggered = false);

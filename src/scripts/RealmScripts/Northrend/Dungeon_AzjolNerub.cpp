@@ -28,15 +28,15 @@ enum DataIndex
 
 //////////////////////////////////////////////////////////////////////////////////////////
 //Azjol-Nerub
-class InstanceAzjolNerubScript : public MoonInstanceScript
+class InstanceAzjolNerubScript : public HybridInstanceScript
 {
 private:
 	uint32 m_phaseData[ACHIEVEMENT_FAIL_YES];
 
     public:
 
-        MOONSCRIPT_INSTANCE_FACTORY_FUNCTION(InstanceAzjolNerubScript, MoonInstanceScript);
-        InstanceAzjolNerubScript(MapMgr* pMapMgr) : MoonInstanceScript(pMapMgr)
+        HYBRIDSCRIPT_INSTANCE_FUNCTION(InstanceAzjolNerubScript, HybridInstanceScript);
+        InstanceAzjolNerubScript(MapMgr* pMapMgr) : HybridInstanceScript(pMapMgr)
         {
             // Way to select bosses
             BuildEncounterMap();

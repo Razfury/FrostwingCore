@@ -47,7 +47,7 @@ struct ForgeMasterData
     uint32 mAnvil;
 };
 
-class UtgardeKeepScript : public MoonInstanceScript
+class UtgardeKeepScript : public HybridInstanceScript
 {
     public:
         uint32        mKelesethGUID;
@@ -61,8 +61,8 @@ class UtgardeKeepScript : public MoonInstanceScript
 
         uint8        mUtgardeData[UTGARDE_DATA_END];
 
-        MOONSCRIPT_INSTANCE_FACTORY_FUNCTION(UtgardeKeepScript, MoonInstanceScript);
-        UtgardeKeepScript(MapMgr* pMapMgr) : MoonInstanceScript(pMapMgr)
+        HYBRIDSCRIPT_INSTANCE_FUNCTION(UtgardeKeepScript, HybridInstanceScript);
+        UtgardeKeepScript(MapMgr* pMapMgr) : HybridInstanceScript(pMapMgr)
         {
             mKelesethGUID = 0;
             mSkarvaldGUID = 0;
@@ -211,7 +211,7 @@ class DragonflayerForgeMasterAI : public HybridCreatureScriptAI
 			ParentClass::OnCombatStart(pTarget);
 		};
 
-        MoonInstanceScript* mInstance;
+        HybridInstanceScript* mInstance;
 };
 
 //////////////////////////////////////////////////////////////////////////

@@ -21,12 +21,12 @@
 
 uint32 _killAmount = 0;
 
-class InstanceCullingOfStratholmeScript : public MoonInstanceScript
+class InstanceCullingOfStratholmeScript : public HybridInstanceScript
 {
 public:
 
-	MOONSCRIPT_INSTANCE_FACTORY_FUNCTION(InstanceCullingOfStratholmeScript, MoonInstanceScript);
-	InstanceCullingOfStratholmeScript(MapMgr* pMapMgr) : MoonInstanceScript(pMapMgr)
+	HYBRIDSCRIPT_INSTANCE_FUNCTION(InstanceCullingOfStratholmeScript, HybridInstanceScript);
+	InstanceCullingOfStratholmeScript(MapMgr* pMapMgr) : HybridInstanceScript(pMapMgr)
 	{
 		// Way to select bosses
 		BuildEncounterMap();

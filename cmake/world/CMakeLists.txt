@@ -117,7 +117,7 @@ SET(sources
 	SummonHandler.cpp
 	SpellEffects.cpp 
 	SpellHandler.cpp 
-	HackFixes.cpp 
+	SpellUpdater.cpp
 	Stats.cpp 
 	TaxiHandler.cpp 
 	TaxiMgr.cpp 
@@ -284,6 +284,7 @@ SET( headers
 	SpellNameHashes.h
 	SpellProc.h
 	SpellTarget.h
+	SpellUpdater.h
 	Stats.h
 	StdAfx.h
 	Entities/Summons/Summon.h

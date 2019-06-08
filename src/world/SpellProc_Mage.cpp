@@ -21,7 +21,6 @@
 
 #include "StdAfx.h"
 
-
 class HotStreakSpellProc : public SpellProc
 {
     SPELL_PROC_FACTORY_FUNCTION(HotStreakSpellProc);
@@ -55,7 +54,39 @@ class HotStreakSpellProc : public SpellProc
     int mCritsInARow;
 };
 
+class CombustionSpellProc : public SpellProc
+{
+    SPELL_PROC_FACTORY_FUNCTION(CombustionSpellProc);
+
+    void Init(Object* obj)
+    {
+        mCrits = 0;
+    }
+
+    bool DoEffect(Unit* victim, SpellEntry* CastingSpell, uint32 flag, uint32 dmg, uint32 abs, int* dmg_overwrite, uint32 weapon_damage_type)
+    {
+        // If spell was a crit, in the fire school and direct fire damage (non-periodic)
+        if ((flag & PROC_ON_SPELL_CRIT_HIT) && CastingSpell->School == 4 && CastingSpell->Effect[0] == SPELL_EFFECT_SCHOOL_DAMAGE || CastingSpell->Effect[1] == SPELL_EFFECT_SCHOOL_DAMAGE || CastingSpell->Effect[2] == SPELL_EFFECT_SCHOOL_DAMAGE)
+        {
+            ++mCrits; // Add 1 to the crit list
+            return true;
+        }
+
+        // If it was a 3rd critical remove aura.
+        if (++mCrits >= 3)
+            if (mTarget)
+            mTarget->RemoveAuraByNameHash(SPELL_HASH_COMBUSTION);
+            return true;
+
+        return false;
+    }
+
+private:
+    int mCrits;
+};
+
 void SpellProcMgr::SetupMage()
 {
     AddById(48108, &HotStreakSpellProc::Create);
+    AddById(11129, &CombustionSpellProc::Create);
 }

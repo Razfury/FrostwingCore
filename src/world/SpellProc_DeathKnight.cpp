@@ -115,7 +115,7 @@ class BladeBarrierSpellProc : public SpellProc
 
     bool CanProc(Unit* victim, SpellEntry* CastingSpell)
     {
-		if (dk->CanUseRunes(2, 0, 0)) // See if DK can use 2 blood runes if not then the runes must be on cooldown
+		if (!dk->CanUseRunes(2, 0, 0)) // See if DK can use 2 blood runes if not then the runes must be on cooldown
         //if (dk->m_runes)
             return true;
 

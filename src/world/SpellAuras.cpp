@@ -4120,27 +4120,6 @@ void Aura::SpellAuraProcTriggerSpell(bool apply)
 
 		switch (GetSpellProto()->Id)
 		{
-		case 12834: // Deep Wounds Rank 1
-		{
-			uint32 triggerspell = 12162;
-			Unit * c = GetUnitCaster();
-			m_target->AddProcTriggerSpell(triggerspell, 12834, m_casterGuid, 100, PROC_ON_CRIT_ATTACK, 0, groupRelation, NULL);
-			return;
-		}break;
-		case 12849: // Deep Wounds Rank 2
-		{
-			uint32 triggerspell = 12850;
-			Unit * c = GetUnitCaster();
-			m_target->AddProcTriggerSpell(triggerspell, 12849, m_casterGuid, 100, PROC_ON_CRIT_ATTACK, 0, groupRelation, NULL);
-			return;
-		}break;
-		case 12867: // Deep Wounds Rank 3
-		{
-			uint32 triggerspell = 12868;
-			Unit * c = GetUnitCaster();
-			m_target->AddProcTriggerSpell(triggerspell, 12867, m_casterGuid, 100, PROC_ON_CRIT_ATTACK, 0, groupRelation, NULL);
-			return;
-		}break;
 			case 48294: // King Ymiron - Bane (Utgarde Pinnacle)
 			{
 				uint32 triggerspell = 48295;

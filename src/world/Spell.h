@@ -275,7 +275,7 @@ enum procFlags
     PROC_ON_ANY_HOSTILE_ACTION          = 0x1,          //1
     PROC_ON_GAIN_EXPIERIENCE            = 0x2,          //2
     PROC_ON_MELEE_ATTACK                = 0x4,          //4
-    PROC_ON_CRIT_HIT_VICTIM             = 0x8,          //8
+    PROC_ON_CRIT_HIT_VICTIM             = 0x8,          //8 (If caster is victim of a crit)
     PROC_ON_CAST_SPELL                  = 0x10,         //16
     PROC_ON_PHYSICAL_ATTACK_VICTIM      = 0x20,         //32
     PROC_ON_RANGED_ATTACK               = 0x40,         //64
@@ -283,20 +283,20 @@ enum procFlags
     PROC_ON_PHYSICAL_ATTACK             = 0x100,        //256
     PROC_ON_MELEE_ATTACK_VICTIM         = 0x200,        //512
     PROC_ON_SPELL_HIT                   = 0x400,        //1024
-    PROC_ON_RANGED_CRIT_ATTACK_VICTIM   = 0x800,        //2048
+    PROC_ON_RANGED_CRIT_ATTACK_VICTIM   = 0x800,        //2048 (If caster is victim of a ranged crit)
     PROC_ON_CRIT_ATTACK                 = 0x1000,       //4096
     PROC_ON_RANGED_ATTACK_VICTIM        = 0x2000,       //8192
     PROC_ON_PRE_DISPELL_AURA_VICTIM     = 0x4000,       //16384
     PROC_ON_SPELL_LAND_VICTIM           = 0x8000,       //32768
     PROC_ON_CAST_SPECIFIC_SPELL         = 0x10000,      //65536
-    PROC_ON_SPELL_HIT_VICTIM            = 0x20000,      //131072
-    PROC_ON_SPELL_CRIT_HIT_VICTIM       = 0x40000,      //262144
+    PROC_ON_SPELL_HIT_VICTIM            = 0x20000,      //131072 (If caster is victim of a spell_hit)
+    PROC_ON_SPELL_CRIT_HIT_VICTIM       = 0x40000,      //262144 (If caster is victim of a crit spell)
     PROC_ON_TARGET_DIE                  = 0x80000,      //524288
     PROC_ON_ANY_DAMAGE_VICTIM           = 0x100000,     //1048576
     PROC_ON_TRAP_TRIGGER                = 0x200000,     //2097152 triggers on trap activation)
     PROC_ON_AUTO_SHOT_HIT               = 0x400000,     //4194304
     PROC_ON_ABSORB                      = 0x800000,     //8388608
-    PROC_ON_RESIST_VICTIM               = 0x1000000,    //16777216
+    PROC_ON_RESIST_VICTIM               = 0x1000000,    //16777216 (If caster is victim of a resisted spell)
     PROC_ON_DODGE_VICTIM                = 0x2000000,    //33554432
     PROC_ON_DIE                         = 0x4000000,    //67108864
     PROC_REMOVEONUSE                    = 0x8000000,    //134217728 remove prochcharge only when it is used
@@ -306,6 +306,38 @@ enum procFlags
     PROC_TARGET_SELF                    = 0x80000000,   //-2147483648 our custom flag to decide if proc target is self or victim
 };
 
+enum ProcFlagsEx
+{
+    PROC_EX_NONE = 0x0000000,                 // If none can tigger on Hit/Crit only (passive spells MUST defined by SpellFamily flag)
+    PROC_EX_NORMAL_HIT = 0x0000001,                 // If set only from normal hit (only damage spells)
+    PROC_EX_CRITICAL_HIT = 0x0000002,
+    PROC_EX_MISS = 0x0000004,
+    PROC_EX_RESIST = 0x0000008,
+    PROC_EX_DODGE = 0x0000010,
+    PROC_EX_PARRY = 0x0000020,
+    PROC_EX_BLOCK = 0x0000040,
+    PROC_EX_EVADE = 0x0000080,
+    PROC_EX_IMMUNE = 0x0000100,
+    PROC_EX_DEFLECT = 0x0000200,
+    PROC_EX_ABSORB = 0x0000400,
+    PROC_EX_REFLECT = 0x0000800,
+    PROC_EX_INTERRUPT = 0x0001000,                 // Melee hit result can be Interrupt (not used)
+    PROC_EX_FULL_BLOCK = 0x0002000,                 // block al attack damage
+    PROC_EX_RESERVED2 = 0x0004000,
+    PROC_EX_NOT_ACTIVE_SPELL = 0x0008000,                 // Spell mustn't do damage/heal to proc
+    PROC_EX_EX_TRIGGER_ALWAYS = 0x0010000,                 // If set trigger always no matter of hit result
+    PROC_EX_EX_ONE_TIME_TRIGGER = 0x0020000,                 // If set trigger always but only one time (not implemented yet)
+    PROC_EX_ONLY_ACTIVE_SPELL = 0x0040000,                 // Spell has to do damage/heal to proc
+    PROC_EX_NO_OVERHEAL = 0x0080000,                 // Proc if heal did some work
+    PROC_EX_NO_AURA_REFRESH = 0x0100000,                 // Proc if aura was not refreshed
+
+    // Flags for internal use - do not use these in db!
+    PROC_EX_INTERNAL_CANT_PROC = 0x0800000,
+    PROC_EX_INTERNAL_DOT = 0x1000000,
+    PROC_EX_INTERNAL_HOT = 0x2000000,
+    PROC_EX_INTERNAL_TRIGGERED = 0x4000000,
+    PROC_EX_INTERNAL_REQ_FAMILY = 0x8000000
+};
 
 enum CastInterruptFlags
 {
@@ -798,6 +830,43 @@ enum PreventionType
     PREVENTION_TYPE_PACIFY    = 2
 };
 
+struct ClassFamilyMask
+{
+    uint64 Flags;
+    uint32 Flags2;
+
+    ClassFamilyMask() : Flags(0), Flags2(0) {}
+    explicit ClassFamilyMask(uint64 familyFlags, uint32 familyFlags2 = 0) : Flags(familyFlags), Flags2(familyFlags2) {}
+
+    bool Empty() const { return Flags == 0 && Flags2 == 0; }
+
+    bool operator!() const { return Empty(); }
+
+    operator void const* () const { return Empty() ? NULL : this; }// for allow normal use in if(mask)
+
+    bool IsFitToFamilyMask(uint64 familyFlags, uint32 familyFlags2 = 0) const
+    {
+        return (Flags & familyFlags) || (Flags2 & familyFlags2);
+    }
+
+    bool IsFitToFamilyMask(ClassFamilyMask const& mask) const
+    {
+        return (Flags & mask.Flags) || (Flags2 & mask.Flags2);
+    }
+
+    uint64 operator& (uint64 mask) const                    // possible will removed at finish convertion code use IsFitToFamilyMask
+    {
+        return Flags & mask;
+    }
+
+    ClassFamilyMask& operator|= (ClassFamilyMask const& mask)
+    {
+        Flags |= mask.Flags;
+        Flags2 |= mask.Flags2;
+        return *this;
+    }
+};
+
 /****************SpellExtraFlags*****************/
 /* SpellExtraFlags defines                      */
 /*                                              */
@@ -909,7 +978,7 @@ enum SpellEffects
     SPELL_EFFECT_LANGUAGE,                  //    39
     SPELL_EFFECT_DUAL_WIELD,                //    40
     SPELL_EFFECT_LEAP_41,                   //    41
-    SPELL_EFFECT_SUMMON_GUARDIAN,           //    42
+    SPELL_EFFECT_JUMP_DEST,                 //    42
     SPELL_EFFECT_TELEPORT_UNITS_FACE_CASTER,//    43
     SPELL_EFFECT_SKILL_STEP,                //    44
     SPELL_EFFECT_UNDEFINED_45,              //    45
@@ -992,7 +1061,7 @@ enum SpellEffects
     SPELL_EFFECT_UNKNOWN1,                  //    122
     SPELL_EFFECT_START_TAXI,                //    123
     SPELL_EFFECT_PLAYER_PULL,               //    124
-    SPELL_EFFECT_UNKNOWN4,                  //    125
+    SPELL_EFFECT_MODIFY_THREAT_PCT,         //    125
     SPELL_EFFECT_UNKNOWN5,                  //    126
     SPELL_EFFECT_PROSPECTING,               //    127
     SPELL_EFFECT_APPLY_FRIEND_AREA_AURA,    //    128
@@ -1005,7 +1074,7 @@ enum SpellEffects
     SPELL_EFFECT_UNKNOWN15,                 //    135
     SPELL_EFFECT_UNKNOWN16,                 //    136
     SPELL_EFFECT_UNKNOWN17,                 //    137
-    SPELL_EFFECT_UNKNOWN18,                 //    138
+    SPELL_EFFECT_LEAP_BACK,                 //    138
     SPELL_EFFECT_CLEAR_QUEST,               //    139
     SPELL_EFFECT_UNKNOWN20,                 //    140
     SPELL_EFFECT_UNKNOWN21,                 //    141
@@ -1016,7 +1085,7 @@ enum SpellEffects
     SPELL_EFFECT_ACTIVATE_RUNES,            //    146
     SPELL_EFFECT_UNKNOWN26,                 //    147
     SPELL_EFFECT_UNKNOWN27,                 //    148
-    SPELL_EFFECT_QUEST_FAIL,                //    149
+    SPELL_EFFECT_CHARGE_DEST,               //    149
     SPELL_EFFECT_UNKNOWN28,                 //    150
     SPELL_EFFECT_UNKNOWN29,                 //    151
     SPELL_EFFECT_UNKNOWN30,                 //    152

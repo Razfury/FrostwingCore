@@ -1429,6 +1429,79 @@ void Spell::cast(bool check)
 
         if (p_caster)
         {
+            // Cronic: Check if paladin's blessings are casted from same caster to prevent having all blessings from one paladin.
+            if (GetProto() && GetProto()->NameHash == SPELL_HASH_BLESSING_OF_KINGS) // Paladin casted BoK on himself check if he has any other blessings that were casted by him to prevent having 2 blessings from 1 paladin.
+            {
+                Aura* pAura_Wisdom = p_caster->FindAuraByNameHash(SPELL_HASH_BLESSING_OF_WISDOM);
+                Aura* pAura_Sanctuary = p_caster->FindAuraByNameHash(SPELL_HASH_BLESSING_OF_SANCTUARY);
+                Aura* pAura_Might = p_caster->FindAuraByNameHash(SPELL_HASH_BLESSING_OF_MIGHT);
+                if (pAura_Wisdom && pAura_Wisdom->GetCaster()->GetGUID() == p_caster->GetGUID()) // Check if the wisdom blessing he currently has is from the same caster if it is remove wisdom.
+                {
+                    p_caster->RemoveAuraByNameHash(SPELL_HASH_BLESSING_OF_WISDOM);
+                }
+                if (pAura_Sanctuary && pAura_Sanctuary->GetCaster()->GetGUID() == p_caster->GetGUID()) // Check if the sanctuary blessing he currently has is from the same caster if it is remove wisdom.
+                {
+                    p_caster->RemoveAuraByNameHash(SPELL_HASH_BLESSING_OF_SANCTUARY);
+                }
+                if (pAura_Might && pAura_Might->GetCaster()->GetGUID() == p_caster->GetGUID()) // Check if the might blessing he currently has is from the same caster if it is remove wisdom.
+                {
+                    p_caster->RemoveAuraByNameHash(SPELL_HASH_BLESSING_OF_MIGHT);
+                }
+            }
+            if (GetProto() && GetProto()->NameHash == SPELL_HASH_BLESSING_OF_WISDOM)
+            {
+                Aura* pAura_Kings = p_caster->FindAuraByNameHash(SPELL_HASH_BLESSING_OF_KINGS);
+                Aura* pAura_Sanctuary = p_caster->FindAuraByNameHash(SPELL_HASH_BLESSING_OF_SANCTUARY);
+                Aura* pAura_Might = p_caster->FindAuraByNameHash(SPELL_HASH_BLESSING_OF_MIGHT);
+                if (pAura_Kings && pAura_Kings->GetCaster()->GetGUID() == p_caster->GetGUID())
+                {
+                    p_caster->RemoveAuraByNameHash(SPELL_HASH_BLESSING_OF_KINGS);
+                }
+                if (pAura_Sanctuary && pAura_Sanctuary->GetCaster()->GetGUID() == p_caster->GetGUID())
+                {
+                    p_caster->RemoveAuraByNameHash(SPELL_HASH_BLESSING_OF_SANCTUARY);
+                }
+                if (pAura_Might && pAura_Might->GetCaster()->GetGUID() == p_caster->GetGUID())
+                {
+                    p_caster->RemoveAuraByNameHash(SPELL_HASH_BLESSING_OF_MIGHT);
+                }
+            }
+            if (GetProto() && GetProto()->NameHash == SPELL_HASH_BLESSING_OF_MIGHT)
+            {
+                Aura* pAura_Kings = p_caster->FindAuraByNameHash(SPELL_HASH_BLESSING_OF_KINGS);
+                Aura* pAura_Sanctuary = p_caster->FindAuraByNameHash(SPELL_HASH_BLESSING_OF_SANCTUARY);
+                Aura* pAura_Wisdom = p_caster->FindAuraByNameHash(SPELL_HASH_BLESSING_OF_WISDOM);
+                if (pAura_Kings && pAura_Kings->GetCaster()->GetGUID() == p_caster->GetGUID())
+                {
+                    p_caster->RemoveAuraByNameHash(SPELL_HASH_BLESSING_OF_KINGS);
+                }
+                if (pAura_Sanctuary && pAura_Sanctuary->GetCaster()->GetGUID() == p_caster->GetGUID())
+                {
+                    p_caster->RemoveAuraByNameHash(SPELL_HASH_BLESSING_OF_SANCTUARY);
+                }
+                if (pAura_Wisdom && pAura_Wisdom->GetCaster()->GetGUID() == p_caster->GetGUID())
+                {
+                    p_caster->RemoveAuraByNameHash(SPELL_HASH_BLESSING_OF_WISDOM);
+                }
+            }
+            if (GetProto() && GetProto()->NameHash == SPELL_HASH_BLESSING_OF_SANCTUARY)
+            {
+                Aura* pAura_Kings = p_caster->FindAuraByNameHash(SPELL_HASH_BLESSING_OF_KINGS);
+                Aura* pAura_Might = p_caster->FindAuraByNameHash(SPELL_HASH_BLESSING_OF_MIGHT);
+                Aura* pAura_Wisdom = p_caster->FindAuraByNameHash(SPELL_HASH_BLESSING_OF_WISDOM);
+                if (pAura_Kings && pAura_Kings->GetCaster()->GetGUID() == p_caster->GetGUID())
+                {
+                    p_caster->RemoveAuraByNameHash(SPELL_HASH_BLESSING_OF_KINGS);
+                }
+                if (pAura_Might && pAura_Might->GetCaster()->GetGUID() == p_caster->GetGUID())
+                {
+                    p_caster->RemoveAuraByNameHash(SPELL_HASH_BLESSING_OF_MIGHT);
+                }
+                if (pAura_Wisdom && pAura_Wisdom->GetCaster()->GetGUID() == p_caster->GetGUID())
+                {
+                    p_caster->RemoveAuraByNameHash(SPELL_HASH_BLESSING_OF_WISDOM);
+                }
+            }
             if (GetProto()->NameHash == SPELL_HASH_SLAM)
             {
                 /* slam - reset attack timer */

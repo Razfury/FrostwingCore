@@ -377,7 +377,7 @@ bool BasicTaskExecutor::run()
     return true;
 }
 
-void ApplyNormalFixes();
+void InitalizeSpellUpdater();
 
 bool World::SetInitialWorldSettings()
 {
@@ -431,56 +431,6 @@ bool World::SetInitialWorldSettings()
         return false;
     }
 
-    /* Convert area table ids/flags */
-    /* TODO: Why are we doing this? Is it still necessary after DBC rework? */
-    /*for (uint32 i = 0; i < sAreaStore.GetNumRows(); ++i)
-    {
-        auto at = sAreaStore.LookupEntry(i);
-        if (!at) continue;
-
-        uint32 area_ = at->id;
-        uint32 flag_ = at->explore_flag;
-        uint32 zone_ = at->zone;
-
-        mAreaIDToTable[flag_] = at;
-        if (mZoneIDToTable.find(zone_) != mZoneIDToTable.end())
-        {
-            if (mZoneIDToTable[zone_]->flags != 312 &&
-                mAreaIDToTable[flag_]->flags == 312)
-            {
-                // over ride.
-                mZoneIDToTable[zone_] = mAreaIDToTable[flag_];
-            }
-        }
-        else
-        {
-            mZoneIDToTable[zone_] = mAreaIDToTable[flag_];
-        }
-    }*/
-    /*for (DBCStorage<AreaTable>::iterator itr = dbcArea.begin(); itr != dbcArea.end(); ++itr)
-    {
-        AreaTable* at = *itr;
-
-        uint32 area_ = at->AreaId;
-        uint32 flag_ = at->explorationFlag;
-        uint32 zone_ = at->ZoneId;
-
-        mAreaIDToTable[flag_] = at;
-        if (mZoneIDToTable.find(zone_) != mZoneIDToTable.end())
-        {
-            if (mZoneIDToTable[zone_]->AreaFlags != 312 &&
-                mAreaIDToTable[flag_]->AreaFlags == 312)
-            {
-                // over ride.
-                mZoneIDToTable[zone_] = mAreaIDToTable[flag_];
-            }
-        }
-        else
-        {
-            mZoneIDToTable[zone_] = mAreaIDToTable[flag_];
-        }
-    }*/
-
     new ObjectMgr;
     new QuestMgr;
     new LootMgr;
@@ -494,7 +444,7 @@ bool World::SetInitialWorldSettings()
     new ChatHandler;
     new SpellProcMgr;
 
-    ApplyNormalFixes();
+    InitalizeSpellUpdater();
 
     new SpellFactoryMgr;
 

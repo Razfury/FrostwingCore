@@ -3110,6 +3110,7 @@ void Unit::Strike(Unit* pVictim, uint32 weapon_damage_type, SpellEntry* ability,
     uint32 vstate = 1;
     uint32 aproc = 0;
     uint32 vproc = 0;
+    uint32 exproc = 0;
 
     float hitmodifier = 0;
     float ArmorPctReduce = m_ignoreArmorPct;
@@ -3514,6 +3515,7 @@ void Unit::Strike(Unit* pVictim, uint32 weapon_damage_type, SpellEntry* ability,
     {
         case 0:     // miss
             hit_status |= HITSTATUS_MISS;
+            exproc |= PROC_EX_MISS;
             if (pVictim->IsCreature() && pVictim->GetAIInterface()->getNextTarget() == NULL)    // dirty ai agro fix
                 pVictim->GetAIInterface()->AttackReaction(this, 1, 0);
             break;
@@ -3526,6 +3528,7 @@ void Unit::Strike(Unit* pVictim, uint32 weapon_damage_type, SpellEntry* ability,
             targetEvent = 1;
             vstate = DODGE;
             vproc |= PROC_ON_DODGE_VICTIM;
+            exproc |= PROC_EX_DODGE;
             pVictim->Emote(EMOTE_ONESHOT_PARRYUNARMED);			// Animation
 
             if (this->IsPlayer() && this->getClass() == WARRIOR)
@@ -3556,6 +3559,7 @@ void Unit::Strike(Unit* pVictim, uint32 weapon_damage_type, SpellEntry* ability,
             CALL_SCRIPT_EVENT(this, OnParried)(this);
             targetEvent = 3;
             vstate = PARRY;
+            exproc |= PROC_EX_PARRY;
             pVictim->Emote(EMOTE_ONESHOT_PARRYUNARMED);			// Animation
 
             if (pVictim->IsPlayer())
@@ -3594,11 +3598,13 @@ void Unit::Strike(Unit* pVictim, uint32 weapon_damage_type, SpellEntry* ability,
                 {
                     aproc |= PROC_ON_MELEE_ATTACK;
                     vproc |= PROC_ON_MELEE_ATTACK_VICTIM;
+                    exproc |= PROC_EX_NORMAL_HIT;
                 }
                 else
                 {
                     aproc |= PROC_ON_RANGED_ATTACK;
                     vproc |= PROC_ON_RANGED_ATTACK_VICTIM;
+                    exproc |= PROC_EX_NORMAL_HIT;
                     if (ability && ability->Id == 3018 && IsPlayer() && getClass() == HUNTER)
                         aproc |= PROC_ON_AUTO_SHOT_HIT;
                 }
@@ -3716,6 +3722,7 @@ void Unit::Strike(Unit* pVictim, uint32 weapon_damage_type, SpellEntry* ability,
                                 CALL_SCRIPT_EVENT(pVictim, OnTargetBlocked)(this, blocked_damage);
                                 CALL_SCRIPT_EVENT(this, OnBlocked)(pVictim, blocked_damage);
                                 vproc |= PROC_ON_BLOCK_VICTIM;
+                                exproc |= PROC_EX_BLOCK;
                             }
                             if (pVictim->IsPlayer())  //not necessary now but we'll have blocking mobs in future
                             {
@@ -3776,11 +3783,13 @@ void Unit::Strike(Unit* pVictim, uint32 weapon_damage_type, SpellEntry* ability,
 
                         vproc |= PROC_ON_CRIT_HIT_VICTIM;
                         aproc |= PROC_ON_CRIT_ATTACK;
+                        exproc |= PROC_EX_CRITICAL_HIT;
 
                         if (weapon_damage_type == RANGED)
                         {
                             vproc |= PROC_ON_RANGED_CRIT_ATTACK_VICTIM;
                             aproc |= PROC_ON_RANGED_CRIT_ATTACK;
+                            exproc |= PROC_EX_CRITICAL_HIT;
                         }
 
                         if (IsPlayer())
@@ -3838,6 +3847,7 @@ void Unit::Strike(Unit* pVictim, uint32 weapon_damage_type, SpellEntry* ability,
 
                 if (abs)
                     vproc |= PROC_ON_ABSORB;
+                    exproc |= PROC_EX_ABSORB;
 
                 if (dmg.school_type == SCHOOL_NORMAL)
                 {
@@ -5932,7 +5942,10 @@ uint8 Unit::CastSpell(Unit* Target, uint32 SpellID, bool triggered)
 
 	if (this->IsCreature()) //Cronic: Do not remove this fixes issues with creatures interrupting spell casts as soon as they are casted.
 	{
-		Root_Moonscript();
+        if (this->GetEntry() != 36612) // Need to add a DB table to ignore root.
+        {
+            Root_Moonscript();
+        }
 	}
     return CastSpell(Target, ent, triggered);
 }

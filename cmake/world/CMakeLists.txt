@@ -117,7 +117,6 @@ SET(sources
 	SummonHandler.cpp
 	SpellEffects.cpp 
 	SpellHandler.cpp 
-	HackFixes.cpp
 	SpellUpdater.cpp
 	Stats.cpp 
 	TaxiHandler.cpp 

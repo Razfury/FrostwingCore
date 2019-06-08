@@ -8037,11 +8037,10 @@ void Player::UpdateChannels(uint16 AreaID)
     Channel* c;
     string channelname, AreaName;
 
-
-    if (GetMapId() == 450)
-        AreaID = 2917;
-    else if (GetMapId() == 449)
-        AreaID = 2918;
+    if (GetMapId() == HORDE_PVP_BARRACKS_MAP)
+        AreaID = AREA_HALL_OF_LEGENDS;
+    else if (GetMapId() == ALLIANCE_PVP_BARRACKS_MAP)
+        AreaID = AREA_CHAMPIONS_HALL;
 
     auto at2 = MapManagement::AreaManagement::AreaStorage::GetAreaById(AreaID);
     if (!at2)

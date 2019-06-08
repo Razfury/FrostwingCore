@@ -745,7 +745,7 @@ struct SpellEntry
     uint32 EffectMiscValueB[MAX_SPELL_EFFECTS];               //114 - 116 2.4.3
     uint32 EffectTriggerSpell[MAX_SPELL_EFFECTS];             //117 - 119
     float EffectPointsPerComboPoint[MAX_SPELL_EFFECTS];       //120 - 122
-    uint32 EffectSpellClassMask[3][3];                        //123 - 131
+    uint32 EffectSpellClassMask[3][3];                           //123 - 131 (was [3][3])
     uint32 SpellVisual;                                       //132
     uint32 field114;                                          //133
     uint32 spellIconID;                                       //134
@@ -783,9 +783,7 @@ struct SpellEntry
     uint32 runeCostID;                                        //227 References SpellRuneCost.dbc
   //uint32 SpellMissileID;                                    //228 References SpellMissile.dbc
   //uint32 UnKnown;                                           //229 powerdisplayid ?
-  //uint32 UnKnown;                                           //230
-  //uint32 UnKnown;                                           //231
-  //uint32 UnKnown;                                           //232
+    float  EffectBonusMultiplier[MAX_SPELL_EFFECTS];          //230-232
   //uint32 SpellDescriptionVariable;                          //233 References SpellDescriptionVariables.dbc
     uint32 SpellDifficultyID;                                 //234 References SpellDifficulty.dbc
 

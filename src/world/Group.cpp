@@ -1437,6 +1437,8 @@ uint64 Group::GetLeaderGUID()
             return m_Leader->m_loggedInPlayer->GetGUID();
         return (uint64)m_Leader->guid;
     }
+    Log.Error("Group", " GetLeaderGUID() did not set leader GUID correctly!"); // Should never happen
+    return NULL;
 }
 
 void Group::GoOffline(Player* p)

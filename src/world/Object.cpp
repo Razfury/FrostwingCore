@@ -426,7 +426,7 @@ void Object::_BuildMovementUpdate(ByteBuffer* data, uint16 flags, uint32 flags2,
                 flags2 |= MOVEFLAG_NO_COLLISION;        //0x400 Zack : Teribus the Cursed had flag 400 instead of 800 and he is flying all the time
             if (uThis->GetAIInterface()->onGameobject)
                 flags2 |= MOVEFLAG_ROOTED;
-            if (uThis->GetProto()->extra_a9_flags)
+            if (uThis->GetProto() && uThis->GetProto()->extra_a9_flags)
             {
                 //do not send shit we can't honor
 #define UNKNOWN_FLAGS2 (0x00002000 | 0x04000000 | 0x08000000)
@@ -1683,6 +1683,7 @@ void Object::SpellNonMeleeDamageLog(Unit* pVictim, uint32 spellID, uint32 damage
 
     uint32 aproc = PROC_ON_ANY_HOSTILE_ACTION; /*| PROC_ON_SPELL_HIT;*/
     uint32 vproc = PROC_ON_ANY_HOSTILE_ACTION | PROC_ON_ANY_DAMAGE_VICTIM; /*| PROC_ON_SPELL_HIT_VICTIM;*/
+    uint32 exproc = 0;
 
     //A school damage is not necessarily magic
     switch (spellInfo->Spell_Dmg_Type)
@@ -1691,6 +1692,7 @@ void Object::SpellNonMeleeDamageLog(Unit* pVictim, uint32 spellID, uint32 damage
         {
             aproc |= PROC_ON_RANGED_ATTACK;
             vproc |= PROC_ON_RANGED_ATTACK_VICTIM;
+            exproc |= PROC_EX_NORMAL_HIT;
         }
         break;
 
@@ -1698,6 +1700,7 @@ void Object::SpellNonMeleeDamageLog(Unit* pVictim, uint32 spellID, uint32 damage
         {
             aproc |= PROC_ON_MELEE_ATTACK;
             vproc |= PROC_ON_MELEE_ATTACK_VICTIM;
+            exproc |= PROC_EX_NORMAL_HIT;
         }
         break;
 
@@ -1705,6 +1708,7 @@ void Object::SpellNonMeleeDamageLog(Unit* pVictim, uint32 spellID, uint32 damage
         {
             aproc |= PROC_ON_SPELL_HIT;
             vproc |= PROC_ON_SPELL_HIT_VICTIM;
+            exproc |= PROC_EX_NORMAL_HIT;
         }
         break;
     }
@@ -1741,6 +1745,7 @@ void Object::SpellNonMeleeDamageLog(Unit* pVictim, uint32 spellID, uint32 damage
                 {
                     aproc |= PROC_ON_RANGED_CRIT_ATTACK;
                     vproc |= PROC_ON_RANGED_CRIT_ATTACK_VICTIM;
+                    exproc |= PROC_EX_CRITICAL_HIT;
                 }
                 break;
 
@@ -1748,6 +1753,7 @@ void Object::SpellNonMeleeDamageLog(Unit* pVictim, uint32 spellID, uint32 damage
                 {
                     aproc |= PROC_ON_CRIT_ATTACK;
                     vproc |= PROC_ON_CRIT_HIT_VICTIM;
+                    exproc |= PROC_EX_CRITICAL_HIT;
                 }
                 break;
 
@@ -1755,6 +1761,7 @@ void Object::SpellNonMeleeDamageLog(Unit* pVictim, uint32 spellID, uint32 damage
                 {
                     aproc |= PROC_ON_SPELL_CRIT_HIT;
                     vproc |= PROC_ON_SPELL_CRIT_HIT_VICTIM;
+                    exproc |= PROC_EX_CRITICAL_HIT;
                 }
                 break;
             }
@@ -1784,6 +1791,7 @@ void Object::SpellNonMeleeDamageLog(Unit* pVictim, uint32 spellID, uint32 damage
 
     if (abs_dmg)
         vproc |= PROC_ON_ABSORB;
+        exproc |= PROC_EX_ABSORB;
 
     // Incanter's Absorption
     if (pVictim->IsPlayer() && pVictim->HasAurasWithNameHash(SPELL_HASH_INCANTER_S_ABSORPTION))

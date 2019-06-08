@@ -294,6 +294,14 @@ void ScriptMgr::register_dummy_aura(uint32 entry, exp_handle_dummy_aura callback
         return;
     }
 
+    //Check if what we are registering is already registered in the spell_proc_source table if so return with error;
+    QueryResult* result = WorldDatabase.Query("SELECT spellId FROM spell_proc_source WHERE spellId = %u", sp);
+    if (result) // Spell has been found
+    {
+        LOG_ERROR("Aura ID: %u is already in spell_proc_source table remove this!", entry);
+        return;
+    }
+
     if (!sp->AppliesAura(SPELL_AURA_DUMMY) && !sp->AppliesAura(SPELL_AURA_PERIODIC_TRIGGER_DUMMY))
         LOG_ERROR("ScriptMgr has registered a dummy aura handler for Spell ID: %u (%s), but spell has no dummy aura!", entry, sp->Name);
 
@@ -312,6 +320,14 @@ void ScriptMgr::register_dummy_spell(uint32 entry, exp_handle_dummy_spell callba
     if (sp == NULL)
     {
         LOG_ERROR("ScriptMgr is trying to register a dummy handler for Spell ID: %u which is invalid.", entry);
+        return;
+    }
+
+    //Check if what we are registering is already registered in the spell_proc_source table if so return with error;
+    QueryResult* result = WorldDatabase.Query("SELECT spellId FROM spell_proc_source WHERE spellId = %u", sp);
+    if (result) // Spell has been found
+    {
+        LOG_ERROR("Spell ID: %u is already in spell_proc_source table remove this!", entry);
         return;
     }
 

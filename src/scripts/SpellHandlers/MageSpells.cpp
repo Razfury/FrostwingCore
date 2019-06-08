@@ -19,6 +19,28 @@
 
 #include "Setup.h"
 
+void IgniteSpell(Aura* aur, uint32 spellId, bool apply, uint32 SpellAuraType)
+{
+    Player* caster = aur->GetPlayerCaster();
+
+    if (caster == NULL)
+    {
+        return;
+    }
+
+    if (spellId == 11119) // Ignite all ranks
+    {
+        if (SpellAuraType == SPELL_AURA_DUMMY)
+        {
+            if (apply)
+            {
+                if (caster->GetTarget() != NULL)
+                caster->CastSpell(caster->GetTarget(), 12654, true);
+            }
+        }
+    }
+};
+
 void MissleBarrage_OnAfterSpellCast(Player* pPlayer, SpellEntry* pSpell, Spell* spell)
 {
 	if (pSpell->NameHash == SPELL_HASH_ARCANE_MISSILES)
@@ -182,6 +204,7 @@ bool MirrorImage(uint32 i, Aura* pAura, bool apply)
 
 void SetupMageSpells(ScriptMgr* mgr)
 {
+    mgr->RegisterSpellType(SPELL_EVENT_AURA, (void*)&IgniteSpell);
 	mgr->RegisterSpellType(SPELL_EVENT_AFTER_CAST_SPELL, (void*)&MissleBarrage_OnAfterSpellCast);
 	mgr->RegisterSpellType(SPELL_EVENT_AFTER_CAST_SPELL, (void*)&ArcaneBlastDamageIncrease_OnAfterSpellCast);
     mgr->register_dummy_spell(11958, &Cold_Snap);

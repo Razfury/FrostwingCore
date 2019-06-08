@@ -420,10 +420,14 @@ class SERVER_DECL Creature : public Unit
         /// For derived subclasses of Creature
         bool IsVehicle()
         {
-            if (proto->vehicleid != 0)
-                return true;
-            else
-                return false;
+            if (proto)
+            {
+                if (proto->vehicleid != 0)
+                    return true;
+                else
+                    return false;
+            }
+               return false;
         }
         
         void AddVehicleComponent(uint32 creature_entry, uint32 vehicleid);
